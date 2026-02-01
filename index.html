@@ -35,19 +35,10 @@
       margin:0 auto;
       padding:80px 20px;
       opacity:0;
-      animation:fadeIn 9s ease-out 2s forwards;
+      animation:fadeIn 2s ease-out .2s forwards;
     }
-
-    @keyframes fadeIn{
-      from{opacity:0;}
-      to{opacity:1;}
-    }
-    .header{
-      text-align:center;
-      margin-bottom:80px;
-      opacity:0;
-      animation:fadeIn 9s ease-out 2s forwards;
-    }
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    .header{text-align:center;margin-bottom:80px;}
     .project-title{color:var(--pi-gold);font-size:1rem;letter-spacing:6px;text-transform:uppercase;margin-bottom:20px;opacity:.85}
     .main-project-name{font-size:3.4rem;font-weight:900;color:#fff;text-shadow:0 0 25px rgba(255,165,0,.25);margin-bottom:40px}
     .divider{width:60px;height:1px;background:var(--pi-gold);margin:30px auto;opacity:.55}
@@ -55,12 +46,7 @@
     .sub-name{font-size:3rem;font-weight:800;margin-bottom:14px}
     .tagline{font-style:italic;opacity:.65}
 
-    .philosophy{
-      margin-bottom:80px;
-      text-align:center;
-      opacity:0;
-      animation:fadeIn 9s ease-out 3s forwards;
-    }
+    .philosophy{margin-bottom:80px;text-align:center;}
     .philosophy h2{color:var(--pi-gold);font-size:2rem;margin-bottom:34px;font-weight:normal;letter-spacing:2px}
     .philosophy p{font-size:1.12rem;color:#cfcfcf;margin:0 auto 26px;max-width:780px}
 
@@ -74,143 +60,71 @@
     .condition-list li{margin-bottom:22px;display:flex;align-items:flex-start;font-size:1.05rem;color:#b8b8b8}
     .condition-list li::before{content:"◈";color:var(--pi-gold);margin-right:14px;opacity:.9}
 
-    .center{
-      text-align:center;
-      margin:0 auto 48px;
-      opacity:0;
-      animation:fadeIn 9s ease-out 4s forwards;
-    }
+    .center{text-align:center;margin:0 auto 48px;}
     .center p{margin-bottom:34px;opacity:.75}
 
     .cta-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-
-      padding:18px 56px;
-      background:transparent;
-      color:var(--pi-gold);
-      text-decoration:none;
-      font-weight:bold;
-      border:1px solid var(--pi-gold);
+      display:inline-flex;align-items:center;justify-content:center;text-align:center;
+      padding:18px 56px;background:transparent;color:var(--pi-gold);
+      text-decoration:none;font-weight:bold;border:1px solid var(--pi-gold);
       transition:.35s;
-
       font-size: clamp(.98rem, 3.6vw, 1.05rem);
       letter-spacing: clamp(1px, .8vw, 3px);
       line-height: 1.15;
-
       text-transform:uppercase;
-      cursor:pointer;
-      border-radius:999px;
-
-      white-space: normal;
-      word-break: keep-all;
-      min-height: 54px;
+      cursor:pointer;border-radius:999px;
+      white-space: normal;word-break: keep-all;min-height: 54px;
     }
-    .cta-btn:hover{
-      background:var(--pi-gold);
-      color:#000;
-      box-shadow:0 0 40px rgba(255,165,0,.22);
-    }
-    .cta-btn[disabled]{
-      opacity:.45;
-      cursor:not-allowed;
-      box-shadow:none;
-    }
+    .cta-btn:hover{background:var(--pi-gold);color:#000;box-shadow:0 0 40px rgba(255,165,0,.22);}
+    .cta-btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;}
 
     #apply-section{
-      display:none;
-      margin-top:50px;
-      padding:54px 38px;
+      display:none;margin-top:50px;padding:54px 38px;
       background:var(--card-bg);
       border:1px solid var(--border);
       border-radius:16px;
     }
     #apply-section h3{
-      color:var(--pi-gold);
-      margin-bottom:28px;
-      text-align:center;
-      font-size:1.7rem;
-      font-weight:normal;
-      letter-spacing:1px;
+      color:var(--pi-gold);margin-bottom:28px;text-align:center;
+      font-size:1.7rem;font-weight:normal;letter-spacing:1px;
     }
     .form-group{margin-bottom:22px;text-align:left}
     .form-group label{
-      display:block;margin-bottom:10px;
-      color:var(--pi-gold);
-      font-size:.78rem;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      opacity:.95;
+      display:block;margin-bottom:10px;color:var(--pi-gold);
+      font-size:.78rem;letter-spacing:2px;text-transform:uppercase;opacity:.95;
     }
     .form-group input,.form-group textarea{
-      width:100%;
-      padding:14px 14px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      color:#fff;
-      border-radius:10px;
-      outline:none;
-      font-size:1rem;
+      width:100%;padding:14px 14px;background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:10px;
+      outline:none;font-size:1rem;
     }
     .form-group textarea{min-height:150px;resize:vertical}
-
     .row{display:flex;gap:14px;flex-wrap:wrap}
     .row .cta-btn{flex:1;min-width:240px}
 
     .log{
-      margin-top:14px;
-      font-size:13px;
-      white-space:pre-wrap;
-      background:rgba(0,0,0,.28);
-      padding:12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.08);
-      color:#eaeaea;
-      text-align:left;
+      margin-top:14px;font-size:13px;white-space:pre-wrap;
+      background:rgba(0,0,0,.28);padding:12px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);color:#eaeaea;text-align:left;
     }
 
     #success-banner{
-      display:none;
-      margin-top:18px;
-      padding:14px 16px;
-      border-radius:12px;
+      display:none;margin-top:18px;padding:14px 16px;border-radius:12px;
       border:1px solid rgba(255,165,0,.35);
-      background:rgba(255,165,0,.10);
-      color:#fff;
-      text-align:center;
-      letter-spacing:1px;
+      background:rgba(255,165,0,.10);color:#fff;text-align:center;letter-spacing:1px
     }
 
-    .gateway-wrap{
-      margin-top:18px;
-      padding-top:18px;
-      border-top:1px solid rgba(255,255,255,.08);
-      text-align:center;
-    }
-    .gateway-sub{
-      opacity:.65;
-      letter-spacing:2px;
-      font-size:.9rem;
-      margin-bottom:12px;
-    }
+    .gateway-wrap{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);text-align:center;}
+    .gateway-sub{opacity:.65;letter-spacing:2px;font-size:.9rem;margin-bottom:12px}
     .gateway-btn{
-      width:100%;
-      border-radius:14px;
-      padding:18px 22px;
+      width:100%;border-radius:14px;padding:18px 22px;
       border:1px solid rgba(255,165,0,.55);
-      background:rgba(255,165,0,.06);
-      color:var(--pi-gold);
+      background:rgba(255,165,0,.06);color:var(--pi-gold);
       letter-spacing:6px;
     }
-    .gateway-btn:hover{
-      background:rgba(255,165,0,.18);
-      box-shadow:0 0 40px rgba(255,165,0,.16);
-    }
+    .gateway-btn:hover{background:rgba(255,165,0,.18);box-shadow:0 0 40px rgba(255,165,0,.16);}
 
     footer{text-align:center;padding:90px 0 20px;font-size:.78rem;opacity:.45;letter-spacing:2px}
-    a{color:inherit}
   </style>
 </head>
 
@@ -218,7 +132,7 @@
   <!-- Google Tag Manager (noscript) -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5KJZ6B9F"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
 
@@ -302,39 +216,8 @@
     </footer>
   </div>
 
-  <!-- ✅ (선택) 최소 보호 스크립트: 워터마크 + iframe 방지 -->
   <script>
-    (function () {
-      'use strict';
-
-      function addWatermark() {
-        const watermark = document.createElement('div');
-        watermark.innerHTML = '© CODE ARCHE';
-        watermark.style.cssText = `
-          position: fixed;
-          bottom: 9px;
-          right: 9px;
-          font-size: 9px;
-          color: rgba(255, 165, 0, 0.3);
-          pointer-events: none;
-          z-index: 9999;
-          font-family: monospace;
-          letter-spacing: 2px;
-        `;
-        document.body.appendChild(watermark);
-      }
-
-      window.addEventListener('load', addWatermark);
-
-      // iframe 삽입 방지
-      if (window.top !== window.self) {
-        window.top.location = window.self.location;
-      }
-    })();
-  </script>
-
-  <!-- ✅ 결제 제거 버전: 폼 제출 성공 시에만 NEXT GATE 오픈 -->
-  <script>
+    // UI refs
     const applySection = document.getElementById("apply-section");
     const openApplyBtn = document.getElementById("openApplyBtn");
     const closeApplyBtn = document.getElementById("closeApplyBtn");
@@ -360,7 +243,7 @@
     openApplyBtn.onclick = openForm;
     closeApplyBtn.onclick = closeForm;
 
-    // NEXT GATE: /pi-genesis.html 로 이동
+    // NEXT GATE
     goGenesisBtn.onclick = () => {
       window.location.href = "/pi-genesis.html";
     };
@@ -370,26 +253,32 @@
     successBanner.style.display = "none";
     setLog("Standing by…");
 
-    function setSubmittedUI() {
-      successBanner.style.display = "block";
-      successBanner.textContent = "Application received. NEXT GATE is now open.";
+    function unlockGate() {
       goGenesisBtn.disabled = false;
       goGenesisBtn.textContent = "ENTER PI GENESIS";
+      successBanner.style.display = "block";
+      successBanner.textContent = "Email sent ✅ NEXT GATE is now open.";
     }
 
     formEl.onsubmit = async (e) => {
       e.preventDefault();
 
+      // 폼 데이터
       const fd = new FormData(formEl);
       const payload = {
-        name: fd.get("name"),
-        email: fd.get("email"),
-        vision: fd.get("vision"),
-        // 결제 제거 테스트용: proofToken 없이 보냄
+        name: String(fd.get("name") || "").trim(),
+        email: String(fd.get("email") || "").trim(),
+        vision: String(fd.get("vision") || "").trim(),
       };
 
+      // 기본 검증
+      if (!payload.name || !payload.email || !payload.vision) {
+        setLog("Please fill out all fields.");
+        return;
+      }
+
       submitBtn.disabled = true;
-      setLog("Submitting…");
+      setLog("Sending email…");
 
       try {
         const r = await fetch("/api/contact", {
@@ -398,29 +287,28 @@
           body: JSON.stringify(payload),
         });
 
-        if (r.ok) {
-          setLog("Application submitted 🎉");
-          setSubmittedUI();
+        const j = await r.json().catch(() => ({}));
 
-          // 원하면 자동으로 폼 닫는 동작 유지
-          setTimeout(() => {
-            formEl.reset();
-            submitBtn.disabled = false;
-            // 폼은 닫지 않고 계속 열어두고 싶으면 아래 줄을 지워도 됨
-            // closeForm();
-          }, 1500);
-
-        } else {
-          const err = await r.json().catch(() => ({}));
-          setLog("Submit failed: " + (err?.error || "unknown"));
+        if (!r.ok || !j.ok) {
+          setLog("Submit failed: " + (j.error || ("HTTP " + r.status)));
           submitBtn.disabled = false;
+          return;
         }
+
+        setLog("Application submitted 🎉");
+        unlockGate();
+
+        // 원하면 제출 후 폼 잠깐 뒤 초기화
+        setTimeout(() => {
+          formEl.reset();
+          submitBtn.disabled = false;
+        }, 1200);
+
       } catch (err) {
         setLog("Network error: " + String(err));
         submitBtn.disabled = false;
       }
     };
   </script>
-
 </body>
 </html>
