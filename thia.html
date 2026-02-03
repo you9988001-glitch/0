@@ -140,6 +140,13 @@
       100% { opacity: 0.18; transform: scale(1.05); }
     }
 
+    /* ✅ 모바일 전용: screen-glow 깜빡임 억제 (scale 변화 최소 + opacity 위주) */
+    @keyframes screenBreathMobile{
+      0%   { opacity: 0.12; transform: scale(1.03); }
+      50%  { opacity: 0.22; transform: scale(1.08); }
+      100% { opacity: 0.12; transform: scale(1.03); }
+    }
+
     /* ===== Layout ===== */
     .container {
       width: 100%;
@@ -365,7 +372,14 @@
         opacity: 0.13;
         filter: blur(26px);
         inset: -12vh -12vw;
-        animation-duration: 12s;
+
+        /* ✅ 핵심: 모바일에서는 안정 버전 애니메이션 사용 */
+        animation-name: screenBreathMobile;
+        animation-duration: 14s;
+
+        /* ✅ 합성 안정화 */
+        will-change: opacity;
+        backface-visibility: hidden;
       }
 
       .water-particles{
@@ -434,11 +448,10 @@
       const isMobile = mqMobile.matches;
       const isTablet = mqTablet.matches;
 
-      /* ✅ 안정 우선:
-         - 모바일/태블릿에서 “깨짐”은 대부분 GPU/오버드로우 한계
-         - 개수는 적당히 올리고(원작 24/42 → +12 정도)
-         - 대신 ‘내부+외부’ 2레이어로 밀도감을 확보 */
-      const THREAD_COUNT = isMobile ? 36 : (isTablet ? 54 : 80);
+      /* ✅ 요청 반영:
+         - 모바일 THREAD 5개 감소 (36 → 31)
+         - 모바일 회전 속도 10% 감속(=duration * 1.1) */
+      const THREAD_COUNT = isMobile ? 31 : (isTablet ? 54 : 80);
 
       /* ✅ 내부/외부 비율: 모바일/태블릿에서 내부가 사라지지 않게 강제 */
       const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
@@ -457,25 +470,19 @@
         const thread = document.createElement('div');
         thread.className = 'silk-thread';
 
-        /* ✅ 핵심: 2레이어 분포
-           - INNER: 작은 실타래(안쪽) 확실히 존재
-           - OUTER: 큰 실타래(바깥)으로 “빈약함” 제거 */
         const isInner = (i < Math.floor(THREAD_COUNT * INNER_RATIO));
 
-        // 데스크톱은 원작 랜덤
         let baseSize;
         let heightVariation;
 
         if (!isMobile && !isTablet) {
-          baseSize = rand(30, 114);          // 원작: 30 + rand*84
-          heightVariation = rand(-10, 10);   // 원작 범위와 유사
+          baseSize = rand(30, 114);
+          heightVariation = rand(-10, 10);
         } else {
           if (isInner) {
-            // ✅ 내부(작은 링): 확실히 작게 유지
             baseSize = isMobile ? rand(26, 58) : rand(28, 64);
             heightVariation = isMobile ? rand(-8, 8) : rand(-10, 10);
           } else {
-            // ✅ 외부(큰 링): 크게 해서 밀도감 확보
             baseSize = isMobile ? rand(62, 108) : rand(60, 112);
             heightVariation = isMobile ? rand(-6, 6) : rand(-8, 8);
           }
@@ -491,8 +498,12 @@
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
 
-        // ✅ 모바일은 조금 더 느리게(부하 완화)
-        const duration = (isMobile ? 32 : (isTablet ? 29 : 25)) + Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
+        // ✅ 모바일은 조금 더 느리게(부하 완화) + 요청대로 10% 추가 감속
+        let duration =
+          (isMobile ? 32 : (isTablet ? 29 : 25)) +
+          Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
+
+        if (isMobile) duration *= 1.1; // ✅ 회전 속도 10% 감속
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
