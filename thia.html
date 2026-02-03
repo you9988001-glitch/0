@@ -323,7 +323,7 @@
       }
     }
 
-    /* ✅ 모바일 전용: 최대 밝기 후 명확한 여운 펄스 2-3회 */
+    /* ✅ 모바일 전용: 여운 펄스 2번, 천천히 여유있게 */
     @keyframes colorShiftMobile {
       0% {
         opacity: 0.5;
@@ -379,8 +379,8 @@
           0 0 240px 120px rgba(120, 180, 230, 0.5),
           0 0 380px 190px rgba(150, 200, 250, 0.4);
       }
-      /* 첫 번째 여운: 확 줄었다가 */
-      40% {
+      /* 첫 번째 여운: 천천히 줄어듦 */
+      42% {
         opacity: 0.58;
         transform: translate3d(0, 0, 0) scale(2.5);
         filter: blur(1.5px);
@@ -389,8 +389,8 @@
           0 0 75px 37px rgba(120, 180, 230, 0.22),
           0 0 110px 55px rgba(150, 200, 250, 0.15);
       }
-      /* 다시 밝아짐 - 첫 번째 펄스 */
-      45% {
+      /* 첫 번째 펄스: 다시 천천히 밝아짐 */
+      50% {
         opacity: 0.72;
         transform: translate3d(0, 0, 0) scale(5.5);
         filter: blur(4px);
@@ -399,45 +399,25 @@
           0 0 170px 85px rgba(120, 180, 230, 0.4),
           0 0 260px 130px rgba(150, 200, 250, 0.3);
       }
-      /* 두 번째 여운: 또 줄어듦 */
-      50% {
-        opacity: 0.55;
-        transform: translate3d(0, 0, 0) scale(2);
+      /* 두 번째 여운: 천천히 줄어듦 */
+      58% {
+        opacity: 0.56;
+        transform: translate3d(0, 0, 0) scale(2.2);
         filter: blur(1px);
         box-shadow:
           0 0 35px 17px rgba(106, 156, 212, 0.28),
           0 0 65px 32px rgba(120, 180, 230, 0.2),
           0 0 95px 47px rgba(150, 200, 250, 0.14);
       }
-      /* 다시 밝아짐 - 두 번째 펄스 */
-      55% {
-        opacity: 0.68;
+      /* 두 번째 펄스: 마지막으로 천천히 밝아짐 */
+      64% {
+        opacity: 0.66;
         transform: translate3d(0, 0, 0) scale(4);
         filter: blur(3px);
         box-shadow:
-          0 0 70px 35px rgba(106, 156, 212, 0.45),
-          0 0 135px 67px rgba(120, 180, 230, 0.35),
-          0 0 200px 100px rgba(150, 200, 250, 0.25);
-      }
-      /* 세 번째 여운: 줄어듦 */
-      60% {
-        opacity: 0.54;
-        transform: translate3d(0, 0, 0) scale(1.8);
-        filter: blur(0.5px);
-        box-shadow:
-          0 0 28px 14px rgba(106, 156, 212, 0.22),
-          0 0 52px 26px rgba(120, 180, 230, 0.16),
-          0 0 75px 37px rgba(150, 200, 250, 0.11);
-      }
-      /* 마지막 작은 펄스 */
-      63% {
-        opacity: 0.6;
-        transform: translate3d(0, 0, 0) scale(2.5);
-        filter: blur(1.5px);
-        box-shadow:
-          0 0 45px 22px rgba(106, 156, 212, 0.32),
-          0 0 85px 42px rgba(120, 180, 230, 0.24),
-          0 0 125px 62px rgba(150, 200, 250, 0.17);
+          0 0 70px 35px rgba(106, 156, 212, 0.42),
+          0 0 130px 65px rgba(120, 180, 230, 0.32),
+          0 0 190px 95px rgba(150, 200, 250, 0.23);
       }
       66.66%, 100% {
         opacity: 0.5;
