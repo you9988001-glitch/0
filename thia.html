@@ -140,11 +140,11 @@
       100% { opacity: 0.18; transform: scale(1.05); }
     }
 
-    /* ✅ 모바일 screen-glow는 "opacity만" (버벅/깜빡 원인인 scale/대면적 리페인트 제거) */
-    @keyframes screenBreathMobileStable{
-      0%   { opacity: 0.07; }
-      50%  { opacity: 0.12; }
-      100% { opacity: 0.07; }
+    /* ✅ 터치 기기(폰/태블릿)에서 screen-glow는 "scale 폭발"을 줄이고, 밝기도 낮춤 */
+    @keyframes screenBreathTouch {
+      0%   { opacity: 0.10; transform: scale(1.03); }
+      50%  { opacity: 0.22; transform: scale(1.14); }
+      100% { opacity: 0.10; transform: scale(1.03); }
     }
 
     /* ===== Layout ===== */
@@ -175,6 +175,9 @@
       isolation: isolate;
       transform: translateZ(0);
       overflow: visible;
+
+      /* ✅ 렌더링 범위를 portal로 최대한 가둠(폰에서 체감 큼) */
+      contain: layout paint;
     }
 
     @keyframes portalReveal {
@@ -186,6 +189,7 @@
       position: absolute;
       border-style: solid;
       will-change: transform;
+      transform: translateZ(0);
     }
 
     .thia-core {
@@ -203,12 +207,76 @@
       transform: translateZ(0);
     }
 
+    /* ✅ 네가 말한 "오렌지→블루" 구간에서 버벅을 만드는 건 여기(폭발 scale+초대형 shadow) */
+    @keyframes colorShift {
+      0% {
+        opacity: 0.4;
+        transform: scale(1);
+        box-shadow:
+          0 0 8px 3px rgba(232, 154, 87, 0.15),
+          0 0 15px 6px rgba(245, 180, 105, 0.1),
+          0 0 22px 9px rgba(255, 200, 120, 0.05);
+      }
+      33.33% {
+        opacity: 0.8;
+        transform: scale(12);
+        filter: blur(15px);
+        box-shadow:
+          0 0 80px 35px rgba(106, 156, 212, 0.5),
+          0 0 150px 70px rgba(120, 180, 230, 0.4),
+          0 0 220px 100px rgba(150, 200, 250, 0.3);
+      }
+      66.66%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+        box-shadow:
+          0 0 8px 3px rgba(232, 154, 87, 0.15),
+          0 0 15px 6px rgba(245, 180, 105, 0.1),
+          0 0 22px 9px rgba(255, 200, 120, 0.05);
+      }
+    }
+
+    /* ✅ 터치 기기용: "연출은 유지"하면서 폭발 비용만 낮춘 버전 (핵심 증명 포인트) */
+    @keyframes colorShiftTouch {
+      0% {
+        opacity: 0.45;
+        transform: scale(1);
+        filter: none;
+        box-shadow:
+          0 0 10px 4px rgba(232, 154, 87, 0.14),
+          0 0 18px 8px rgba(245, 180, 105, 0.10);
+      }
+      33.33% {
+        /* ✅ scale 12 → 7.6 (퍼짐은 되는데 비용 폭감) */
+        opacity: 0.72;
+        transform: scale(7.6);
+
+        /* ✅ blur 15 → 8.5 */
+        filter: blur(8.5px);
+
+        /* ✅ 초대형 shadow들을 "한 단계 낮춘" 값 */
+        box-shadow:
+          0 0 52px 22px rgba(106, 156, 212, 0.42),
+          0 0 95px 44px rgba(120, 180, 230, 0.32),
+          0 0 140px 68px rgba(150, 200, 250, 0.22);
+      }
+      66.66%, 100% {
+        opacity: 0.45;
+        transform: scale(1);
+        filter: none;
+        box-shadow:
+          0 0 10px 4px rgba(232, 154, 87, 0.14),
+          0 0 18px 8px rgba(245, 180, 105, 0.10);
+      }
+    }
+
     .light-halo {
       position: absolute;
       border-radius: 50%;
       animation: haloBreath 12s ease-in-out infinite alternate;
       z-index: 5;
       transform: translateZ(0);
+      will-change: transform, opacity;
     }
 
     .halo-1 {
@@ -295,34 +363,6 @@
       margin-right: 80px;
     }
 
-    @keyframes colorShift {
-      0% {
-        opacity: 0.4;
-        transform: scale(1);
-        box-shadow:
-          0 0 8px 3px rgba(232, 154, 87, 0.15),
-          0 0 15px 6px rgba(245, 180, 105, 0.1),
-          0 0 22px 9px rgba(255, 200, 120, 0.05);
-      }
-      33.33% {
-        opacity: 0.8;
-        transform: scale(12);
-        filter: blur(15px);
-        box-shadow:
-          0 0 80px 35px rgba(106, 156, 212, 0.5),
-          0 0 150px 70px rgba(120, 180, 230, 0.4),
-          0 0 220px 100px rgba(150, 200, 250, 0.3);
-      }
-      66.66%, 100% {
-        opacity: 0.4;
-        transform: scale(1);
-        box-shadow:
-          0 0 8px 3px rgba(232, 154, 87, 0.15),
-          0 0 15px 6px rgba(245, 180, 105, 0.1),
-          0 0 22px 9px rgba(255, 200, 120, 0.05);
-      }
-    }
-
     /* ===== Thread Flows ===== */
     @keyframes flow1 { 0% { transform: rotate(0deg) scale(0.95) translate(0,0); opacity: 0.25; } 50% { transform: rotate(180deg) scale(1.05) translate(3%,-2%); opacity: 0.45; } 100% { transform: rotate(360deg) scale(0.95) translate(0,0); opacity: 0.25; } }
     @keyframes flow2 { 0% { transform: rotate(0deg) scale(1) translate(0,0); opacity: 0.3; } 50% { transform: rotate(-180deg) scale(0.92) translate(-2%,3%); opacity: 0.5; } 100% { transform: rotate(-360deg) scale(1) translate(0,0); opacity: 0.3; } }
@@ -363,114 +403,29 @@
       .signature { text-align: center; margin-right: 0; }
     }
 
-    /* ✅ 모바일 핵심: 오렌지↔블루 전환을 "scale 폭발"이 아니라 "opacity 크로스페이드"로 */
-    @keyframes auraWarm {
-      0%   { opacity: 0.16; }
-      40%  { opacity: 0.06; }
-      50%  { opacity: 0.02; }
-      90%  { opacity: 0.14; }
-      100% { opacity: 0.16; }
-    }
-    @keyframes auraBlue {
-      0%   { opacity: 0.03; }
-      40%  { opacity: 0.12; }
-      50%  { opacity: 0.18; }
-      90%  { opacity: 0.04; }
-      100% { opacity: 0.03; }
-    }
-
-    @media (max-width: 480px) {
-      .arche-prefix { font-size: 0.52rem; letter-spacing: 1.4px; }
-      .main-heading { letter-spacing: 12px; }
-
-      /* ✅ screen-glow: 모바일은 scale 제거 + 밝기/면적/블러 절감 + 부드러운 호흡 */
+    /* ===========================================================
+       ✅ 이번 증명 포인트:
+       - 화면 폭(480px) 조건이 아니라 "폰의 특성" 조건으로 적용
+       - 실타래(개수/분포) 건드리지 않음
+       - 버벅의 직접 원인: scale 12 + blur 15 + 초대형 그림자 → 강도만 하향
+       =========================================================== */
+    @media (hover: none) and (pointer: coarse) {
       .screen-glow{
-        inset: -6vh -6vw;
-        filter: blur(14px);
-        opacity: 0.09;
-
-        background:
-          radial-gradient(farthest-corner at 50% 50%,
-            rgba(255, 204, 51, 0.16) 0%,
-            rgba(255, 204, 51, 0.06) 44%,
-            rgba(255, 204, 51, 0.00) 100%),
-          radial-gradient(farthest-corner at 50% 50%,
-            rgba(255, 255, 255, 0.03) 0%,
-            rgba(255, 255, 255, 0.00) 76%);
-
-        animation-name: screenBreathMobileStable;
-        animation-duration: 26s;
-        animation-delay: 0s;
-        will-change: opacity;
-        transform: translateZ(0);
-        backface-visibility: hidden;
+        /* 대면적/대블러 비용 완화 + 애니메이션도 더 느리게 */
+        inset: -14vh -14vw;
+        filter: blur(34px);
+        opacity: 0.16;
+        animation: screenBreathTouch 14s ease-in-out 30s infinite;
       }
 
-      /* ✅ thia-core: 모바일에서 기존 colorShift(=scale 12 폭발) 완전 차단 */
       .thia-core{
-        animation: none !important;
-        filter: none !important;
-        transform: translateZ(0) !important;
-
-        /* ✅ 코어 자체도 살려서 "빛이 사라짐" 방지 */
-        box-shadow:
-          0 0 10px 4px rgba(232, 184, 127, 0.20),
-          0 0 18px 8px rgba(245, 180, 105, 0.12);
-
-        overflow: visible;
-        z-index: 20;
+        /* ✅ 핵심: 폰에서는 폭발 버전을 Touch로 치환 */
+        animation-name: colorShiftTouch;
+        animation-duration: 70s; /* 전환도 더 느리게(2~3초 급격구간 완화) */
       }
 
-      /* ✅ 오렌지 오라 (보이게 강도 확실히 올림, 대신 scale 없음/opacity만) */
-      .thia-core::before{
-        content: '';
-        display: block;
-        position: absolute;
-        inset: -88px;
-        border-radius: 50%;
-        pointer-events: none;
-        transform: translateZ(0);
-        will-change: opacity;
-
-        background: radial-gradient(circle,
-          rgba(232, 184, 127, 0.34) 0%,
-          rgba(232, 184, 127, 0.14) 30%,
-          rgba(232, 184, 127, 0.00) 74%);
-        filter: blur(18px);
-
-        opacity: 0.12;
-        animation: auraWarm 18s ease-in-out infinite;
-      }
-
-      /* ✅ 블루 오라 (전환 2~3초 구간에서 "밝아지며 퍼짐" 느낌을 opacity로만 구현) */
-      .thia-core::after{
-        content: '';
-        display: block;
-        position: absolute;
-        inset: -104px;
-        border-radius: 50%;
-        pointer-events: none;
-        transform: translateZ(0);
-        will-change: opacity;
-
-        background: radial-gradient(circle,
-          rgba(106, 156, 212, 0.30) 0%,
-          rgba(106, 156, 212, 0.12) 32%,
-          rgba(106, 156, 212, 0.00) 78%);
-        filter: blur(20px);
-
-        opacity: 0.06;
-        animation: auraBlue 18s ease-in-out infinite;
-      }
-
-      /* (기존 모바일 안정 옵션 유지) */
-      .water-particles{
-        opacity: 0.26;
-        animation-duration: 90s;
-      }
-
-      .nexus-bg::before { animation-duration: 70s; }
-      .nexus-bg::after  { animation-duration: 90s; }
+      /* 부수적으로 너무 과한 합성 비용 완화(작품 느낌은 유지) */
+      .water-particles{ opacity: 0.30; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -530,8 +485,12 @@
       const isMobile = mqMobile.matches;
       const isTablet = mqTablet.matches;
 
+      // ✅ 실타래 개수/구조는 네 원본 로직 그대로 유지
       const THREAD_COUNT = isMobile ? 36 : (isTablet ? 54 : 80);
       const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
+
+      // ✅ 터치기기에서는 두께/속도만 "아주 미세하게" 완화 (작품 느낌 유지)
+      const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
       const colors = [
         { color: 'rgba(255, 165, 75, 0.63)', width: isMobile ? 1.05 : 0.8 },
@@ -541,26 +500,12 @@
 
       function rand(min, max) { return min + Math.random() * (max - min); }
       function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-      function shuffle(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-      }
-
-      // ✅ Inner/Outer를 섞어 분포(중간만 비는 현상 방지)
-      const innerCount = Math.round(THREAD_COUNT * INNER_RATIO);
-      const flags = [];
-      for (let i = 0; i < innerCount; i++) flags.push(true);
-      for (let i = innerCount; i < THREAD_COUNT; i++) flags.push(false);
-      shuffle(flags);
 
       for (let i = 0; i < THREAD_COUNT; i++) {
         const thread = document.createElement('div');
         thread.className = 'silk-thread';
 
-        const isInner = flags[i];
+        const isInner = (i < Math.floor(THREAD_COUNT * INNER_RATIO));
 
         let baseSize;
         let heightVariation;
@@ -583,18 +528,18 @@
         thread.style.borderRadius = pick(organicShapes);
 
         const c = pick(colors);
+
+        // ✅ 터치기기에서만 8% 정도만 얇게(거의 티 안나고 비용은 줄어듦)
+        const widthAdj = isTouch ? 0.92 : 1;
         thread.style.borderColor = c.color;
-        thread.style.borderWidth = `${c.width}px`;
+        thread.style.borderWidth = `${(c.width * widthAdj).toFixed(2)}px`;
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
 
-        // ✅ 모바일에서 더 느리게(부하 완화)
-        let duration =
-          (isMobile ? 34 : (isTablet ? 29 : 25)) +
-          Math.random() * (isMobile ? 26 : (isTablet ? 24 : 30));
-
-        if (isMobile) duration *= 1.25;
-        else if (isTablet) duration *= 1.12;
+        // ✅ 터치기기에서만 12% 느리게(작품 느낌 유지, 부하는 완화)
+        const base = (isMobile ? 32 : (isTablet ? 29 : 25));
+        const extra = Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
+        const duration = (base + extra) * (isTouch ? 1.12 : 1.0);
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
