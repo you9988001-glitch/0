@@ -323,7 +323,7 @@
       }
     }
 
-    /* ✅ 모바일 전용: 여운 펄스 2번, 천천히 여유있게 */
+    /* ✅ 모바일 전용: 여운 5배 느리게, 범위 1/3 축소 - 섬세한 작은 펄스 */
     @keyframes colorShiftMobile {
       0% {
         opacity: 0.5;
@@ -379,45 +379,45 @@
           0 0 240px 120px rgba(120, 180, 230, 0.5),
           0 0 380px 190px rgba(150, 200, 250, 0.4);
       }
-      /* 첫 번째 여운: 천천히 줄어듦 */
-      42% {
-        opacity: 0.58;
-        transform: translate3d(0, 0, 0) scale(2.5);
-        filter: blur(1.5px);
-        box-shadow:
-          0 0 40px 20px rgba(106, 156, 212, 0.3),
-          0 0 75px 37px rgba(120, 180, 230, 0.22),
-          0 0 110px 55px rgba(150, 200, 250, 0.15);
-      }
-      /* 첫 번째 펄스: 다시 천천히 밝아짐 */
-      50% {
-        opacity: 0.72;
-        transform: translate3d(0, 0, 0) scale(5.5);
-        filter: blur(4px);
-        box-shadow:
-          0 0 90px 45px rgba(106, 156, 212, 0.5),
-          0 0 170px 85px rgba(120, 180, 230, 0.4),
-          0 0 260px 130px rgba(150, 200, 250, 0.3);
-      }
-      /* 두 번째 여운: 천천히 줄어듦 */
-      58% {
+      /* 첫 번째 여운: 아주 천천히 작게 줄어듦 */
+      45% {
         opacity: 0.56;
-        transform: translate3d(0, 0, 0) scale(2.2);
-        filter: blur(1px);
+        transform: translate3d(0, 0, 0) scale(1.4);
+        filter: blur(0.3px);
         box-shadow:
-          0 0 35px 17px rgba(106, 156, 212, 0.28),
-          0 0 65px 32px rgba(120, 180, 230, 0.2),
-          0 0 95px 47px rgba(150, 200, 250, 0.14);
+          0 0 20px 10px rgba(106, 156, 212, 0.22),
+          0 0 35px 17px rgba(120, 180, 230, 0.16),
+          0 0 50px 25px rgba(150, 200, 250, 0.11);
       }
-      /* 두 번째 펄스: 마지막으로 천천히 밝아짐 */
-      64% {
-        opacity: 0.66;
-        transform: translate3d(0, 0, 0) scale(4);
-        filter: blur(3px);
+      /* 첫 번째 펄스: 아주 천천히 작게 밝아짐 */
+      52% {
+        opacity: 0.62;
+        transform: translate3d(0, 0, 0) scale(1.8);
+        filter: blur(0.5px);
         box-shadow:
-          0 0 70px 35px rgba(106, 156, 212, 0.42),
-          0 0 130px 65px rgba(120, 180, 230, 0.32),
-          0 0 190px 95px rgba(150, 200, 250, 0.23);
+          0 0 30px 15px rgba(106, 156, 212, 0.28),
+          0 0 55px 27px rgba(120, 180, 230, 0.2),
+          0 0 80px 40px rgba(150, 200, 250, 0.14);
+      }
+      /* 두 번째 여운: 아주 천천히 작게 줄어듦 */
+      59% {
+        opacity: 0.55;
+        transform: translate3d(0, 0, 0) scale(1.3);
+        filter: blur(0.2px);
+        box-shadow:
+          0 0 18px 9px rgba(106, 156, 212, 0.2),
+          0 0 32px 16px rgba(120, 180, 230, 0.14),
+          0 0 45px 22px rgba(150, 200, 250, 0.1);
+      }
+      /* 두 번째 펄스: 마지막 작은 밝아짐 */
+      65% {
+        opacity: 0.58;
+        transform: translate3d(0, 0, 0) scale(1.5);
+        filter: blur(0.3px);
+        box-shadow:
+          0 0 25px 12px rgba(106, 156, 212, 0.24),
+          0 0 45px 22px rgba(120, 180, 230, 0.17),
+          0 0 65px 32px rgba(150, 200, 250, 0.12);
       }
       66.66%, 100% {
         opacity: 0.5;
