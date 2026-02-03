@@ -323,7 +323,7 @@
       }
     }
 
-    /* ✅ 모바일 전용: 중앙 빛 효과 간소화 (scale 변화 최소화) */
+    /* ✅ 모바일 전용: 파란빛 효과 화면 전체로 확장 */
     @keyframes colorShiftMobile {
       0% {
         opacity: 0.45;
@@ -334,13 +334,14 @@
           0 0 22px 9px rgba(255, 200, 120, 0.05);
       }
       33.33% {
-        opacity: 0.75;
-        transform: translate3d(0, 0, 0) scale(6);
-        filter: blur(8px);
+        opacity: 0.85;
+        transform: translate3d(0, 0, 0) scale(10);
+        filter: blur(14px);
         box-shadow:
-          0 0 40px 20px rgba(106, 156, 212, 0.35),
-          0 0 70px 35px rgba(120, 180, 230, 0.25),
-          0 0 100px 50px rgba(150, 200, 250, 0.18);
+          0 0 80px 40px rgba(106, 156, 212, 0.55),
+          0 0 160px 80px rgba(120, 180, 230, 0.45),
+          0 0 240px 120px rgba(150, 200, 250, 0.35),
+          0 0 320px 160px rgba(180, 210, 255, 0.25);
       }
       66.66%, 100% {
         opacity: 0.45;
@@ -548,11 +549,12 @@
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
 
+        // ✅ 모바일: 실타래 회전 속도 늦춰서 GPU 여유 확보 → 파란빛에 집중
         let duration =
-          (isMobile ? 32 : (isTablet ? 29 : 25)) +
-          Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
+          (isMobile ? 38 : (isTablet ? 29 : 25)) +
+          Math.random() * (isMobile ? 28 : (isTablet ? 24 : 30));
 
-        if (isMobile) duration *= 1.1;
+        if (isMobile) duration *= 1.2; // 회전 속도 20% 추가 감속
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
