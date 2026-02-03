@@ -14,7 +14,6 @@
       --horizon-deep: #0d1a2d;
       --horizon-mid: #1d2d47;
       --horizon-light: #2d4263;
-      --water-shimmer: rgba(106, 156, 212, 0.15);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,7 +36,7 @@
       100% { opacity: 1; }
     }
 
-    /* ===== Background Layers ===== */
+    /* ===== Background ===== */
     .nexus-bg {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -289,7 +288,6 @@
       margin-right: 80px;
     }
 
-    /* ===== Core Color Shift ===== */
     @keyframes colorShift {
       0% {
         opacity: 0.4;
@@ -362,52 +360,21 @@
       .arche-prefix { font-size: 0.52rem; letter-spacing: 1.4px; }
       .main-heading { letter-spacing: 12px; }
 
-      /* 모바일 안정성 유지용(원작 손상 없이 비용만 절감) */
+      /* ✅ 모바일에서 깨짐 방지: 과한 블러/광원을 줄여 headroom 확보 */
       .screen-glow{
-        opacity: 0.14;
-        filter: blur(28px);
+        opacity: 0.13;
+        filter: blur(26px);
         inset: -12vh -12vw;
         animation-duration: 12s;
       }
+
       .water-particles{
-        opacity: 0.28;
-        animation-duration: 80s;
+        opacity: 0.26;
+        animation-duration: 90s;
       }
-      .nexus-bg::before { animation-duration: 60s; }
-      .nexus-bg::after  { animation-duration: 80s; }
 
-      .thia-core {
-        animation: colorShiftMobile 60s ease-in-out 30s infinite !important;
-        filter: none !important;
-        transform: translate3d(0,0,0);
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-      }
-    }
-
-    /* 모바일 코어(폭발 느낌 유지 + 비용 절감) */
-    @keyframes colorShiftMobile {
-      0% {
-        opacity: 0.70;
-        box-shadow:
-          0 0 18px 9px rgba(232, 154, 87, 0.55),
-          0 0 36px 18px rgba(245, 180, 105, 0.35),
-          0 0 60px 30px rgba(255, 200, 120, 0.18);
-      }
-      33.33% {
-        opacity: 0.80;
-        box-shadow:
-          0 0 90px 45px rgba(106, 156, 212, 0.55),
-          0 0 160px 80px rgba(120, 180, 230, 0.40),
-          0 0 240px 120px rgba(150, 200, 250, 0.22);
-      }
-      66.66%, 100% {
-        opacity: 0.70;
-        box-shadow:
-          0 0 18px 9px rgba(232, 154, 87, 0.55),
-          0 0 36px 18px rgba(245, 180, 105, 0.35),
-          0 0 60px 30px rgba(255, 200, 120, 0.18);
-      }
+      .nexus-bg::before { animation-duration: 70s; }
+      .nexus-bg::after  { animation-duration: 90s; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -467,42 +434,65 @@
       const isMobile = mqMobile.matches;
       const isTablet = mqTablet.matches;
 
-      /* ✅ 요청: 모바일/태블릿 실타래 “빈약함” 해결
-         - 모바일 24 → 44 (+20)
-         - 태블릿 42 → 62 (+20)
-         - 대신 “큰 원형”으로 밀도감 강화 */
-      const THREAD_COUNT = isMobile ? 44 : (isTablet ? 62 : 80);
+      /* ✅ 안정 우선:
+         - 모바일/태블릿에서 “깨짐”은 대부분 GPU/오버드로우 한계
+         - 개수는 적당히 올리고(원작 24/42 → +12 정도)
+         - 대신 ‘내부+외부’ 2레이어로 밀도감을 확보 */
+      const THREAD_COUNT = isMobile ? 36 : (isTablet ? 54 : 80);
 
+      /* ✅ 내부/외부 비율: 모바일/태블릿에서 내부가 사라지지 않게 강제 */
+      const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
+
+      /* 두께는 모바일에서 아주 조금만 */
       const colors = [
-        { color: 'rgba(255, 165, 75, 0.63)', width: isMobile ? 1.15 : 0.8 },
-        { color: 'rgba(250, 155, 65, 0.59)', width: isMobile ? 1.05 : 0.7 },
-        { color: 'rgba(255, 175, 85, 0.57)', width: isMobile ? 0.95 : 0.6 },
+        { color: 'rgba(255, 165, 75, 0.63)', width: isMobile ? 1.05 : 0.8 },
+        { color: 'rgba(250, 155, 65, 0.59)', width: isMobile ? 0.95 : 0.7 },
+        { color: 'rgba(255, 175, 85, 0.57)', width: isMobile ? 0.85 : 0.6 },
       ];
+
+      function rand(min, max) { return min + Math.random() * (max - min); }
+      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
       for (let i = 0; i < THREAD_COUNT; i++) {
         const thread = document.createElement('div');
         thread.className = 'silk-thread';
 
-        /* ✅ “큰 원형” 체감
-           - 모바일: 최소 크기 올리고 변동폭을 줄여 “빈 구간”이 덜 생기게
-           - 태블릿: 중간 수준
-           - 데스크톱: 원작 값 유지 */
-        const baseMin = isMobile ? 60 : (isTablet ? 54 : 30);
-        const baseVar = isMobile ? 40 : (isTablet ? 52 : 84);
-        const baseSize = baseMin + Math.random() * baseVar;
+        /* ✅ 핵심: 2레이어 분포
+           - INNER: 작은 실타래(안쪽) 확실히 존재
+           - OUTER: 큰 실타래(바깥)으로 “빈약함” 제거 */
+        const isInner = (i < Math.floor(THREAD_COUNT * INNER_RATIO));
 
-        const heightVariation = isMobile ? (-6 + Math.random() * 12) : (-10 + Math.random() * 20);
+        // 데스크톱은 원작 랜덤
+        let baseSize;
+        let heightVariation;
+
+        if (!isMobile && !isTablet) {
+          baseSize = rand(30, 114);          // 원작: 30 + rand*84
+          heightVariation = rand(-10, 10);   // 원작 범위와 유사
+        } else {
+          if (isInner) {
+            // ✅ 내부(작은 링): 확실히 작게 유지
+            baseSize = isMobile ? rand(26, 58) : rand(28, 64);
+            heightVariation = isMobile ? rand(-8, 8) : rand(-10, 10);
+          } else {
+            // ✅ 외부(큰 링): 크게 해서 밀도감 확보
+            baseSize = isMobile ? rand(62, 108) : rand(60, 112);
+            heightVariation = isMobile ? rand(-6, 6) : rand(-8, 8);
+          }
+        }
 
         thread.style.width = `${baseSize}%`;
         thread.style.height = `${baseSize + heightVariation}%`;
-        thread.style.borderRadius = organicShapes[Math.floor(Math.random() * organicShapes.length)];
+        thread.style.borderRadius = pick(organicShapes);
 
-        const colorStyle = colors[Math.floor(Math.random() * colors.length)];
-        thread.style.borderColor = colorStyle.color;
-        thread.style.borderWidth = `${colorStyle.width}px`;
+        const c = pick(colors);
+        thread.style.borderColor = c.color;
+        thread.style.borderWidth = `${c.width}px`;
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
-        const duration = (isMobile ? 31 : 25) + Math.random() * (isMobile ? 24 : 30); // 모바일은 조금 더 느리게
+
+        // ✅ 모바일은 조금 더 느리게(부하 완화)
+        const duration = (isMobile ? 32 : (isTablet ? 29 : 25)) + Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
