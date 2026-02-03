@@ -140,11 +140,11 @@
       100% { opacity: 0.18; transform: scale(1.05); }
     }
 
-    /* ✅ 모바일 전용: screen-glow 깜빡임 억제 (scale 변화 최소 + opacity 위주) */
+    /* ✅ 모바일 전용: 더 약하고, 더 느리고, transform 없이(깜빡임 억제 최우선) */
     @keyframes screenBreathMobile{
-      0%   { opacity: 0.12; transform: scale(1.03); }
-      50%  { opacity: 0.22; transform: scale(1.08); }
-      100% { opacity: 0.12; transform: scale(1.03); }
+      0%   { opacity: 0.08; }
+      50%  { opacity: 0.15; }
+      100% { opacity: 0.08; }
     }
 
     /* ===== Layout ===== */
@@ -367,19 +367,27 @@
       .arche-prefix { font-size: 0.52rem; letter-spacing: 1.4px; }
       .main-heading { letter-spacing: 12px; }
 
-      /* ✅ 모바일에서 깨짐 방지: 과한 블러/광원을 줄여 headroom 확보 */
+      /* ✅ 모바일에서 파란빛을 더 약하게 + transform 제거 + 더 느리게 */
       .screen-glow{
-        opacity: 0.13;
-        filter: blur(26px);
-        inset: -12vh -12vw;
+        opacity: 0.10;
+        filter: blur(20px);
+        inset: -10vh -10vw;
 
-        /* ✅ 핵심: 모바일에서는 안정 버전 애니메이션 사용 */
+        /* ✅ 배경 자체도 약하게(밝기/면적 감소) */
+        background:
+          radial-gradient(farthest-corner at 50% 50%,
+            rgba(255, 204, 51, 0.22) 0%,
+            rgba(255, 204, 51, 0.08) 40%,
+            rgba(255, 204, 51, 0.00) 100%),
+          radial-gradient(farthest-corner at 50% 50%,
+            rgba(255, 255, 255, 0.05) 0%,
+            rgba(255, 255, 255, 0.00) 72%);
+
         animation-name: screenBreathMobile;
-        animation-duration: 14s;
-
-        /* ✅ 합성 안정화 */
-        will-change: opacity;
+        animation-duration: 20s;     /* ✅ 더 느리게 */
+        will-change: opacity;       /* ✅ opacity만 */
         backface-visibility: hidden;
+        transform: none;            /* ✅ 모바일에서는 transform 합성 자체 제거 */
       }
 
       .water-particles{
@@ -448,15 +456,13 @@
       const isMobile = mqMobile.matches;
       const isTablet = mqTablet.matches;
 
-      /* ✅ 요청 반영:
-         - 모바일 THREAD 5개 감소 (36 → 31)
-         - 모바일 회전 속도 10% 감속(=duration * 1.1) */
-      const THREAD_COUNT = isMobile ? 31 : (isTablet ? 54 : 80);
+      /* ✅ 실타래는 “형태 회복”을 위해 원래 모바일 36으로 복귀
+         (대신 속도를 더 줄여서 부하를 낮춤) */
+      const THREAD_COUNT = isMobile ? 36 : (isTablet ? 54 : 80);
 
-      /* ✅ 내부/외부 비율: 모바일/태블릿에서 내부가 사라지지 않게 강제 */
+      /* ✅ 내부/외부 비율 유지 */
       const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
 
-      /* 두께는 모바일에서 아주 조금만 */
       const colors = [
         { color: 'rgba(255, 165, 75, 0.63)', width: isMobile ? 1.05 : 0.8 },
         { color: 'rgba(250, 155, 65, 0.59)', width: isMobile ? 0.95 : 0.7 },
@@ -466,11 +472,27 @@
       function rand(min, max) { return min + Math.random() * (max - min); }
       function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
+      /* ✅ 핵심: Inner/Outer를 “순서로 고정하지 않고” 섞어서 배치
+         -> 개수를 줄이거나 조정해도 “중간만 비는” 현상이 거의 사라짐 */
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      const innerCount = Math.round(THREAD_COUNT * INNER_RATIO);
+      const flags = [];
+      for (let i = 0; i < innerCount; i++) flags.push(true);
+      for (let i = innerCount; i < THREAD_COUNT; i++) flags.push(false);
+      shuffle(flags);
+
       for (let i = 0; i < THREAD_COUNT; i++) {
         const thread = document.createElement('div');
         thread.className = 'silk-thread';
 
-        const isInner = (i < Math.floor(THREAD_COUNT * INNER_RATIO));
+        const isInner = flags[i];
 
         let baseSize;
         let heightVariation;
@@ -498,12 +520,13 @@
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
 
-        // ✅ 모바일은 조금 더 느리게(부하 완화) + 요청대로 10% 추가 감속
+        /* ✅ 요청 반영: 회전 속도 더 줄임(모바일에서 더 느리게) */
         let duration =
-          (isMobile ? 32 : (isTablet ? 29 : 25)) +
-          Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
+          (isMobile ? 34 : (isTablet ? 29 : 25)) +
+          Math.random() * (isMobile ? 26 : (isTablet ? 24 : 30));
 
-        if (isMobile) duration *= 1.1; // ✅ 회전 속도 10% 감속
+        if (isMobile) duration *= 1.35;  // ✅ 모바일 체감 확실히 느리게
+        else if (isTablet) duration *= 1.15;
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
