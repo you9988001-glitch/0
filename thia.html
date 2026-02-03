@@ -323,7 +323,7 @@
       }
     }
 
-    /* ✅ 모바일 전용: 깜빡임 제거 - blur 최소화, box-shadow 범위로 파란빛 확산 */
+    /* ✅ 모바일 전용: 밝아질 때 버벅임 완전 제거 - 중간 단계 추가 */
     @keyframes colorShiftMobile {
       0% {
         opacity: 0.5;
@@ -334,6 +334,15 @@
           0 0 15px 6px rgba(245, 180, 105, 0.1),
           0 0 22px 9px rgba(255, 200, 120, 0.05);
       }
+      20% {
+        opacity: 0.65;
+        transform: translate3d(0, 0, 0) scale(4);
+        filter: blur(3px);
+        box-shadow:
+          0 0 60px 30px rgba(106, 156, 212, 0.4),
+          0 0 120px 60px rgba(120, 180, 230, 0.3),
+          0 0 180px 90px rgba(150, 200, 250, 0.25);
+      }
       33.33% {
         opacity: 0.8;
         transform: translate3d(0, 0, 0) scale(8);
@@ -342,6 +351,15 @@
           0 0 120px 60px rgba(106, 156, 212, 0.6),
           0 0 240px 120px rgba(120, 180, 230, 0.5),
           0 0 380px 190px rgba(150, 200, 250, 0.4);
+      }
+      50% {
+        opacity: 0.65;
+        transform: translate3d(0, 0, 0) scale(4.5);
+        filter: blur(3px);
+        box-shadow:
+          0 0 70px 35px rgba(106, 156, 212, 0.4),
+          0 0 140px 70px rgba(120, 180, 230, 0.3),
+          0 0 210px 105px rgba(150, 200, 250, 0.2);
       }
       66.66%, 100% {
         opacity: 0.5;
