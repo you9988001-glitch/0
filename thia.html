@@ -323,7 +323,7 @@
       }
     }
 
-    /* ✅ 모바일 전용: 품 넓게 유영하는 빛의 호흡 - 여운 펄스 3회 */
+    /* ✅ 모바일 전용: 품 넓고 여유있게 유영하는 빛의 호흡 - 여운 펄스 2회 */
     @keyframes colorShiftMobile {
       0% {
         opacity: 0.5;
@@ -379,8 +379,8 @@
           0 0 240px 120px rgba(120, 180, 230, 0.5),
           0 0 380px 190px rgba(150, 200, 250, 0.4);
       }
-      /* === 여운 시작: 첫 번째 펄스 === */
-      40% {
+      /* === 첫 번째 펄스: 천천히 줄어듦 === */
+      42% {
         opacity: 0.62;
         transform: translate3d(0, 0, 0) scale(3.5);
         filter: blur(2px);
@@ -389,7 +389,8 @@
           0 0 100px 50px rgba(120, 180, 230, 0.28),
           0 0 150px 75px rgba(150, 200, 250, 0.2);
       }
-      45% {
+      /* === 첫 번째 펄스: 천천히 다시 밝아짐 === */
+      48% {
         opacity: 0.7;
         transform: translate3d(0, 0, 0) scale(5);
         filter: blur(3.5px);
@@ -398,8 +399,8 @@
           0 0 150px 75px rgba(120, 180, 230, 0.38),
           0 0 230px 115px rgba(150, 200, 250, 0.28);
       }
-      /* === 두 번째 펄스 === */
-      50% {
+      /* === 두 번째 펄스: 천천히 줄어듦 === */
+      54% {
         opacity: 0.6;
         transform: translate3d(0, 0, 0) scale(3);
         filter: blur(1.5px);
@@ -408,7 +409,8 @@
           0 0 90px 45px rgba(120, 180, 230, 0.26),
           0 0 135px 67px rgba(150, 200, 250, 0.18);
       }
-      55% {
+      /* === 두 번째 펄스: 천천히 다시 밝아짐 === */
+      60% {
         opacity: 0.67;
         transform: translate3d(0, 0, 0) scale(4.2);
         filter: blur(2.5px);
@@ -416,25 +418,6 @@
           0 0 68px 34px rgba(106, 156, 212, 0.42),
           0 0 128px 64px rgba(120, 180, 230, 0.33),
           0 0 190px 95px rgba(150, 200, 250, 0.24);
-      }
-      /* === 세 번째 펄스 === */
-      60% {
-        opacity: 0.58;
-        transform: translate3d(0, 0, 0) scale(2.5);
-        filter: blur(1px);
-        box-shadow:
-          0 0 40px 20px rgba(106, 156, 212, 0.3),
-          0 0 75px 37px rgba(120, 180, 230, 0.22),
-          0 0 110px 55px rgba(150, 200, 250, 0.15);
-      }
-      64% {
-        opacity: 0.62;
-        transform: translate3d(0, 0, 0) scale(3.2);
-        filter: blur(1.8px);
-        box-shadow:
-          0 0 52px 26px rgba(106, 156, 212, 0.36),
-          0 0 98px 49px rgba(120, 180, 230, 0.27),
-          0 0 145px 72px rgba(150, 200, 250, 0.19);
       }
       66.66%, 100% {
         opacity: 0.5;
