@@ -323,7 +323,7 @@
       }
     }
 
-    /* ✅ 모바일 전용: 밝아질 때 버벅임 완전 제거 - 중간 단계 추가 */
+    /* ✅ 모바일 전용: 디테일한 빛의 호흡 - 작은 펄스들 추가 */
     @keyframes colorShiftMobile {
       0% {
         opacity: 0.5;
@@ -334,6 +334,24 @@
           0 0 15px 6px rgba(245, 180, 105, 0.1),
           0 0 22px 9px rgba(255, 200, 120, 0.05);
       }
+      10% {
+        opacity: 0.58;
+        transform: translate3d(0, 0, 0) scale(2);
+        filter: blur(1px);
+        box-shadow:
+          0 0 30px 15px rgba(106, 156, 212, 0.25),
+          0 0 50px 25px rgba(120, 180, 230, 0.18),
+          0 0 70px 35px rgba(150, 200, 250, 0.12);
+      }
+      15% {
+        opacity: 0.62;
+        transform: translate3d(0, 0, 0) scale(3);
+        filter: blur(2px);
+        box-shadow:
+          0 0 45px 22px rgba(106, 156, 212, 0.3),
+          0 0 80px 40px rgba(120, 180, 230, 0.22),
+          0 0 120px 60px rgba(150, 200, 250, 0.16);
+      }
       20% {
         opacity: 0.65;
         transform: translate3d(0, 0, 0) scale(4);
@@ -342,6 +360,15 @@
           0 0 60px 30px rgba(106, 156, 212, 0.4),
           0 0 120px 60px rgba(120, 180, 230, 0.3),
           0 0 180px 90px rgba(150, 200, 250, 0.25);
+      }
+      28% {
+        opacity: 0.75;
+        transform: translate3d(0, 0, 0) scale(7);
+        filter: blur(5px);
+        box-shadow:
+          0 0 100px 50px rgba(106, 156, 212, 0.55),
+          0 0 200px 100px rgba(120, 180, 230, 0.45),
+          0 0 320px 160px rgba(150, 200, 250, 0.35);
       }
       33.33% {
         opacity: 0.8;
@@ -352,6 +379,24 @@
           0 0 240px 120px rgba(120, 180, 230, 0.5),
           0 0 380px 190px rgba(150, 200, 250, 0.4);
       }
+      38% {
+        opacity: 0.75;
+        transform: translate3d(0, 0, 0) scale(7);
+        filter: blur(5px);
+        box-shadow:
+          0 0 100px 50px rgba(106, 156, 212, 0.52),
+          0 0 190px 95px rgba(120, 180, 230, 0.42),
+          0 0 300px 150px rgba(150, 200, 250, 0.32);
+      }
+      45% {
+        opacity: 0.68;
+        transform: translate3d(0, 0, 0) scale(5);
+        filter: blur(3.5px);
+        box-shadow:
+          0 0 75px 37px rgba(106, 156, 212, 0.42),
+          0 0 145px 72px rgba(120, 180, 230, 0.32),
+          0 0 220px 110px rgba(150, 200, 250, 0.22);
+      }
       50% {
         opacity: 0.65;
         transform: translate3d(0, 0, 0) scale(4.5);
@@ -360,6 +405,15 @@
           0 0 70px 35px rgba(106, 156, 212, 0.4),
           0 0 140px 70px rgba(120, 180, 230, 0.3),
           0 0 210px 105px rgba(150, 200, 250, 0.2);
+      }
+      58% {
+        opacity: 0.6;
+        transform: translate3d(0, 0, 0) scale(3);
+        filter: blur(2px);
+        box-shadow:
+          0 0 50px 25px rgba(106, 156, 212, 0.3),
+          0 0 95px 47px rgba(120, 180, 230, 0.22),
+          0 0 140px 70px rgba(150, 200, 250, 0.15);
       }
       66.66%, 100% {
         opacity: 0.5;
