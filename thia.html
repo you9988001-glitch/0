@@ -140,11 +140,11 @@
       100% { opacity: 0.18; transform: scale(1.05); }
     }
 
-    /* ✅ 모바일 전용: 더 약하고, 더 느리고, transform 없이(깜빡임 억제 최우선) */
-    @keyframes screenBreathMobile{
-      0%   { opacity: 0.08; }
-      50%  { opacity: 0.15; }
-      100% { opacity: 0.08; }
+    /* ✅ 모바일용: screen-glow는 "opacity만" (가장 안정) */
+    @keyframes screenBreathMobileStable{
+      0%   { opacity: 0.06; }
+      50%  { opacity: 0.11; }
+      100% { opacity: 0.06; }
     }
 
     /* ===== Layout ===== */
@@ -363,31 +363,98 @@
       .signature { text-align: center; margin-right: 0; }
     }
 
+    /* =========================================================
+       ✅ 모바일 해결 핵심 (여기만이 진짜 "치료부")
+       - thia-core의 "scale 12 + blur + 대형 shadow" 제거
+       - 오렌지/블루 오라를 pseudo-element 2장으로 만들고
+         opacity 크로스페이드만 반복 (가장 안정)
+       - screen-glow도 모바일은 opacity만
+       ========================================================= */
+    @keyframes auraWarm {
+      0%   { opacity: 0.16; }
+      40%  { opacity: 0.06; }
+      50%  { opacity: 0.02; }
+      90%  { opacity: 0.14; }
+      100% { opacity: 0.16; }
+    }
+    @keyframes auraBlue {
+      0%   { opacity: 0.02; }
+      40%  { opacity: 0.10; }
+      50%  { opacity: 0.16; }
+      90%  { opacity: 0.03; }
+      100% { opacity: 0.02; }
+    }
+
     @media (max-width: 480px) {
       .arche-prefix { font-size: 0.52rem; letter-spacing: 1.4px; }
       .main-heading { letter-spacing: 12px; }
 
-      /* ✅ 모바일에서 파란빛을 더 약하게 + transform 제거 + 더 느리게 */
+      /* ✅ screen-glow: 밝기↓, 면적↓, blur↓, 속도↓, opacity만 */
       .screen-glow{
-        opacity: 0.10;
-        filter: blur(20px);
-        inset: -10vh -10vw;
+        inset: -6vh -6vw;
+        filter: blur(14px);
+        opacity: 0.07;
 
-        /* ✅ 배경 자체도 약하게(밝기/면적 감소) */
         background:
           radial-gradient(farthest-corner at 50% 50%,
-            rgba(255, 204, 51, 0.22) 0%,
-            rgba(255, 204, 51, 0.08) 40%,
+            rgba(255, 204, 51, 0.14) 0%,
+            rgba(255, 204, 51, 0.05) 44%,
             rgba(255, 204, 51, 0.00) 100%),
           radial-gradient(farthest-corner at 50% 50%,
-            rgba(255, 255, 255, 0.05) 0%,
-            rgba(255, 255, 255, 0.00) 72%);
+            rgba(255, 255, 255, 0.03) 0%,
+            rgba(255, 255, 255, 0.00) 76%);
 
-        animation-name: screenBreathMobile;
-        animation-duration: 20s;     /* ✅ 더 느리게 */
-        will-change: opacity;       /* ✅ opacity만 */
-        backface-visibility: hidden;
-        transform: none;            /* ✅ 모바일에서는 transform 합성 자체 제거 */
+        animation-name: screenBreathMobileStable;
+        animation-duration: 26s;     /* ✅ 퍼지는 속도 더 느리게 */
+        animation-delay: 0s;        /* ✅ 모바일에서 "초반부터" 안정적으로 */
+        will-change: opacity;
+        transform: translateZ(0);   /* ✅ 고정 */
+      }
+
+      /* ✅ thia-core: 모바일에서는 "폭발(scale 12)" 금지 */
+      .thia-core{
+        animation: none !important;     /* ✅ 원래 colorShift 완전 차단 */
+        filter: none !important;
+        transform: translateZ(0) !important;
+        box-shadow:
+          0 0 8px 3px rgba(232, 154, 87, 0.12),
+          0 0 14px 6px rgba(245, 180, 105, 0.08);
+      }
+
+      /* ✅ 오라 2장: 오렌지(따뜻함) */
+      .thia-core::before{
+        content: '';
+        position: absolute;
+        inset: -90px;
+        border-radius: 50%;
+        background: radial-gradient(circle,
+          rgba(232, 184, 127, 0.22) 0%,
+          rgba(232, 184, 127, 0.10) 28%,
+          rgba(232, 184, 127, 0.00) 72%);
+        filter: blur(16px);              /* ✅ 고정 blur */
+        opacity: 0.14;
+        will-change: opacity;            /* ✅ opacity만 */
+        animation: auraWarm 18s ease-in-out infinite;
+        pointer-events: none;
+        transform: translateZ(0);
+      }
+
+      /* ✅ 오라 2장: 파랑(차분한 확장) */
+      .thia-core::after{
+        content: '';
+        position: absolute;
+        inset: -110px;                   /* ✅ 파랑은 더 넓게 퍼지되 */
+        border-radius: 50%;
+        background: radial-gradient(circle,
+          rgba(106, 156, 212, 0.18) 0%,
+          rgba(106, 156, 212, 0.08) 30%,
+          rgba(106, 156, 212, 0.00) 76%);
+        filter: blur(18px);              /* ✅ 고정 blur */
+        opacity: 0.02;
+        will-change: opacity;            /* ✅ opacity만 */
+        animation: auraBlue 18s ease-in-out infinite;
+        pointer-events: none;
+        transform: translateZ(0);
       }
 
       .water-particles{
@@ -456,11 +523,7 @@
       const isMobile = mqMobile.matches;
       const isTablet = mqTablet.matches;
 
-      /* ✅ 실타래는 “형태 회복”을 위해 원래 모바일 36으로 복귀
-         (대신 속도를 더 줄여서 부하를 낮춤) */
       const THREAD_COUNT = isMobile ? 36 : (isTablet ? 54 : 80);
-
-      /* ✅ 내부/외부 비율 유지 */
       const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
 
       const colors = [
@@ -471,9 +534,6 @@
 
       function rand(min, max) { return min + Math.random() * (max - min); }
       function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-      /* ✅ 핵심: Inner/Outer를 “순서로 고정하지 않고” 섞어서 배치
-         -> 개수를 줄이거나 조정해도 “중간만 비는” 현상이 거의 사라짐 */
       function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -520,13 +580,12 @@
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
 
-        /* ✅ 요청 반영: 회전 속도 더 줄임(모바일에서 더 느리게) */
         let duration =
           (isMobile ? 34 : (isTablet ? 29 : 25)) +
           Math.random() * (isMobile ? 26 : (isTablet ? 24 : 30));
 
-        if (isMobile) duration *= 1.35;  // ✅ 모바일 체감 확실히 느리게
-        else if (isTablet) duration *= 1.15;
+        if (isMobile) duration *= 1.25;
+        else if (isTablet) duration *= 1.12;
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
