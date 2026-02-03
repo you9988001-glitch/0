@@ -140,11 +140,11 @@
       100% { opacity: 0.18; transform: scale(1.05); }
     }
 
-    /* ✅ 추가: 폰/태블릿용 Lite (대면적 scale 폭을 줄여 "깜빡/버벅" 완화) */
-    @keyframes screenBreathLite{
-      0%   { opacity: 0.12; transform: scale(1.03); }
-      50%  { opacity: 0.26; transform: scale(1.14); }
-      100% { opacity: 0.12; transform: scale(1.03); }
+    /* ✅ 모바일 전용: 깜빡임 완전 제거 + 부드러운 빛 퍼짐 효과 */
+    @keyframes screenBreathMobile{
+      0%   { opacity: 0.15; transform: translate3d(0, 0, 0) scale(1.00); }
+      50%  { opacity: 0.32; transform: translate3d(0, 0, 0) scale(1.05); }
+      100% { opacity: 0.15; transform: translate3d(0, 0, 0) scale(1.00); }
     }
 
     /* ===== Layout ===== */
@@ -323,33 +323,31 @@
       }
     }
 
-    /* ✅ 추가: 폰/태블릿용 Lite (전환 2~3초 구간 “폭발 비용”만 낮춘 동일 연출) */
-    @keyframes colorShiftLite {
+    /* ✅ 모바일 전용: 중앙 빛 효과 간소화 (scale 변화 최소화) */
+    @keyframes colorShiftMobile {
       0% {
-        opacity: 0.42;
-        transform: scale(1);
-        filter: none;
+        opacity: 0.45;
+        transform: translate3d(0, 0, 0) scale(1);
         box-shadow:
-          0 0 9px 4px rgba(232, 154, 87, 0.14),
-          0 0 16px 7px rgba(245, 180, 105, 0.10),
+          0 0 8px 3px rgba(232, 154, 87, 0.15),
+          0 0 15px 6px rgba(245, 180, 105, 0.1),
           0 0 22px 9px rgba(255, 200, 120, 0.05);
       }
       33.33% {
-        opacity: 0.72;
-        transform: scale(7.8);      /* 12 → 7.8 */
-        filter: blur(8.5px);        /* 15 → 8.5 */
+        opacity: 0.75;
+        transform: translate3d(0, 0, 0) scale(6);
+        filter: blur(8px);
         box-shadow:
-          0 0 54px 24px rgba(106, 156, 212, 0.42),
-          0 0 98px 46px rgba(120, 180, 230, 0.30),
-          0 0 145px 70px rgba(150, 200, 250, 0.20);
+          0 0 40px 20px rgba(106, 156, 212, 0.35),
+          0 0 70px 35px rgba(120, 180, 230, 0.25),
+          0 0 100px 50px rgba(150, 200, 250, 0.18);
       }
       66.66%, 100% {
-        opacity: 0.42;
-        transform: scale(1);
-        filter: none;
+        opacity: 0.45;
+        transform: translate3d(0, 0, 0) scale(1);
         box-shadow:
-          0 0 9px 4px rgba(232, 154, 87, 0.14),
-          0 0 16px 7px rgba(245, 180, 105, 0.10),
+          0 0 8px 3px rgba(232, 154, 87, 0.15),
+          0 0 15px 6px rgba(245, 180, 105, 0.1),
           0 0 22px 9px rgba(255, 200, 120, 0.05);
       }
     }
@@ -392,36 +390,61 @@
       .main-heading { font-size: clamp(2.8rem, 12vw, 4rem); margin-bottom: 20px; }
       .arche-prefix { margin-right: 0; }
       .signature { text-align: center; margin-right: 0; }
-
-      /* ✅ 핵심 2개만 “Lite”로 전환 (작품 구조는 그대로) */
-      .thia-core { animation: colorShiftLite 70s ease-in-out 30s infinite; }
-      .screen-glow{
-        animation: screenBreathLite 14s ease-in-out 30s infinite;
-        filter: blur(36px);
-        opacity: 0.16;
-        inset: -16vh -16vw;
-      }
     }
 
-    /* 기존 네 모바일 안정 옵션은 유지 */
     @media (max-width: 480px) {
       .arche-prefix { font-size: 0.52rem; letter-spacing: 1.4px; }
       .main-heading { letter-spacing: 12px; }
 
+      /* ✅ 모바일 최적화: 깜빡임 완전 제거 */
       .screen-glow{
-        opacity: 0.13;
-        filter: blur(26px);
-        inset: -12vh -12vw;
-        animation-duration: 18s; /* 더 느리게 */
+        opacity: 0.18;
+        filter: blur(20px);
+        inset: -10vh -10vw;
+        
+        /* ✅ 핵심: 안정적인 애니메이션 사용 + 딜레이 제거 + 속도 느리게 */
+        animation: screenBreathMobile 18s ease-in-out 0s infinite;
+        
+        /* ✅ GPU 가속 강화 */
+        will-change: opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
       }
 
+      /* ✅ 중앙 빛(thia-core) 효과도 모바일 버전으로 전환 */
+      .thia-core {
+        animation: colorShiftMobile 60s ease-in-out 30s infinite;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+
+      /* ✅ 배경 파티클/레이어 부드럽게 */
       .water-particles{
-        opacity: 0.26;
-        animation-duration: 90s;
+        opacity: 0.3;
+        animation-duration: 80s;
+        will-change: transform;
+        backface-visibility: hidden;
       }
 
-      .nexus-bg::before { animation-duration: 70s; }
-      .nexus-bg::after  { animation-duration: 90s; }
+      .nexus-bg::before { 
+        animation-duration: 60s;
+        will-change: transform;
+      }
+      
+      .nexus-bg::after { 
+        animation-duration: 80s;
+        will-change: opacity;
+      }
+
+      /* ✅ 후광 효과도 부드럽게 */
+      .light-halo {
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        animation-duration: 16s;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -481,8 +504,7 @@
       const isMobile = mqMobile.matches;
       const isTablet = mqTablet.matches;
 
-      /* 원본 그대로 */
-      const THREAD_COUNT = isMobile ? 36 : (isTablet ? 54 : 80);
+      const THREAD_COUNT = isMobile ? 31 : (isTablet ? 54 : 80);
       const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
 
       const colors = [
@@ -526,7 +548,11 @@
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
 
-        const duration = (isMobile ? 32 : (isTablet ? 29 : 25)) + Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
+        let duration =
+          (isMobile ? 32 : (isTablet ? 29 : 25)) +
+          Math.random() * (isMobile ? 22 : (isTablet ? 24 : 30));
+
+        if (isMobile) duration *= 1.1;
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
