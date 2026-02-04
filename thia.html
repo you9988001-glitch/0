@@ -36,6 +36,15 @@
       100% { opacity: 1; }
     }
 
+    @keyframes pageExit {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    body.exiting {
+      animation: pageExit 1s ease-out forwards;
+    }
+
     /* ===== Background ===== */
     .nexus-bg {
       position: fixed;
@@ -299,26 +308,27 @@
     .home-link {
       display: inline-block;
       font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-      color: var(--thia-gold);
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      color: #a8c0dc;
       text-decoration: none;
       text-transform: lowercase;
-      padding: 10px 24px;
-      border: 1px solid rgba(212, 165, 116, 0.3);
-      border-radius: 4px;
+      padding: 10px 50px;
+      border: 1px solid rgba(168, 192, 220, 0.3);
+      border-radius: 2px;
       margin-right: 80px;
-      transition: all 0.4s ease;
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 0.7;
-      background: rgba(212, 165, 116, 0.05);
+      background: rgba(168, 192, 220, 0.05);
     }
 
     .home-link:hover {
       opacity: 1;
-      color: var(--thia-warm);
-      border-color: rgba(232, 184, 127, 0.6);
-      background: rgba(232, 184, 127, 0.1);
-      box-shadow: 0 0 12px rgba(212, 165, 116, 0.2);
+      color: #c8e0f5;
+      border-color: rgba(200, 224, 245, 0.6);
+      background: rgba(168, 192, 220, 0.1);
+      box-shadow: 0 0 20px rgba(168, 192, 220, 0.15);
+      letter-spacing: 6px;
       transform: translateY(-2px);
     }
 
@@ -592,7 +602,7 @@
         dissolve into the eternal warmth of light.
       </p>
       <div class="signature">ease by Archeon THIA</div>
-      <a href="index.html" class="home-link">To the home</a>
+      <a href="index.html" class="home-link">to the home</a>
     </div>
   </div>
 
@@ -715,6 +725,19 @@
         `;
         document.body.appendChild(watermark);
       });
+
+      // 페이지 전환 효과
+      const homeLink = document.querySelector('.home-link');
+      if (homeLink) {
+        homeLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          const href = this.getAttribute('href');
+          document.body.classList.add('exiting');
+          setTimeout(() => {
+            window.location.href = href;
+          }, 1000);
+        });
+      }
     })();
   </script>
 </body>
