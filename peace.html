@@ -7,9 +7,9 @@
     <style>
         :root {
             --bg-color: #fcfcfc;
-            --text-main: #1a1a1a; /* 더 깊고 진한 블랙 */
-            --text-sub: #444444; /* 흐릿하지 않은 서브 텍스트 */
-            --accent: #b8860b; /* 무게감 있는 골드 */
+            --text-main: #1a1a1a;
+            --text-sub: #444444;
+            --accent: #b8860b;
         }
 
         body {
@@ -22,16 +22,46 @@
             background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
             font-family: 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
             color: var(--text-main);
+            opacity: 0;
+            animation: pageLoad 2s ease-out forwards;
+        }
+
+        @keyframes pageLoad {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes pageExit {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        body.exiting {
+            animation: pageExit 1.5s ease-out forwards;
         }
 
         .container {
             max-width: 600px;
             width: 90%;
-            background: rgba(255, 255, 255, 0.98); /* 배경을 더 불투명하게 하여 글자 강조 */
+            background: rgba(255, 255, 255, 0.98);
             padding: 50px 40px;
             border-radius: 20px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.1);
             text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: containerFadeIn 1.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes containerFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header-title {
@@ -50,12 +80,11 @@
             word-break: keep-all;
         }
 
-        /* [수정됨] 명상 질문 - 선명하고 진하게 */
         .meditation-quest {
             margin: 45px 0;
-            color: #000000; /* 완전한 블랙으로 선명도 확보 */
-            font-weight: 600; /* 두께를 주어 존재감 강조 */
-            font-size: 1.2rem; /* 크기를 키워 눈에 띄게 함 */
+            color: #000000;
+            font-weight: 600;
+            font-size: 1.2rem;
             line-height: 1.6;
             letter-spacing: -0.5px;
         }
@@ -72,6 +101,14 @@
             margin-top: 15px;
             font-weight: 600;
             color: var(--accent);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+
+        .signature:hover {
+            color: #d4a574;
+            transform: scale(1.08);
         }
 
         hr {
@@ -123,6 +160,17 @@
             line-height: 1.6;
             font-style: italic;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { 
+                animation: none !important; 
+                transition: none !important; 
+            }
+            body, .container { 
+                opacity: 1 !important; 
+                transform: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,7 +188,7 @@
         </div>
 
         <div class="main-wish">
-            May you find peace. <span class="signature">— Thia</span>
+            May you find peace. <span class="signature" id="thiaLink">— Thia</span>
         </div>
 
         <hr>
@@ -152,9 +200,59 @@
         </form>
 
         <div class="ps-box">
-            P.S. Share your energy as your heart leads; you don't have to care about the numbers. If your energy is low, it’s okay not to do it. Just take care of yourself!
+            P.S. Share your energy as your heart leads; you don't have to care about the numbers. If your energy is low, it's okay not to do it. Just take care of yourself!
         </div>
     </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // thia 페이지로 돌아가기
+            const thiaLink = document.getElementById('thiaLink');
+            if (thiaLink) {
+                thiaLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.body.classList.add('exiting');
+                    setTimeout(() => {
+                        window.location.href = 'thia.html';
+                    }, 1500);
+                });
+            }
+
+            // 보안 기능
+            document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.keyCode === 123 ||
+                    (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+                    (e.ctrlKey && e.keyCode === 85)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            document.addEventListener('copy', e => { e.preventDefault(); return false; });
+            document.addEventListener('dragstart', e => { e.preventDefault(); return false; });
+
+            window.addEventListener('load', function() {
+                const watermark = document.createElement('div');
+                watermark.textContent = '© CODE ARCHE';
+                watermark.style.cssText = `
+                    position: fixed;
+                    bottom: 10px;
+                    right: 10px;
+                    font-size: 10px;
+                    color: rgba(184, 134, 11, 0.3);
+                    pointer-events: none;
+                    z-index: 9999;
+                    font-family: monospace;
+                    letter-spacing: 2px;
+                `;
+                document.body.appendChild(watermark);
+            });
+        })();
+    </script>
 
 </body>
 </html>
