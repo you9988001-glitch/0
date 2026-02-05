@@ -7,9 +7,9 @@
     <style>
         :root {
             --bg-color: #fcfcfc;
-            --text-main: #2c3e50;
-            --text-sub: #7f8c8d;
-            --accent: #d4af37; /* 은은한 골드빛 */
+            --text-main: #1a1a1a; /* 더 깊고 진한 블랙 */
+            --text-sub: #444444; /* 흐릿하지 않은 서브 텍스트 */
+            --accent: #b8860b; /* 무게감 있는 골드 */
         }
 
         body {
@@ -19,72 +19,68 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+            font-family: 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
             color: var(--text-main);
-            overflow-x: hidden;
         }
 
         .container {
             max-width: 600px;
             width: 90%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.98); /* 배경을 더 불투명하게 하여 글자 강조 */
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
             text-align: center;
-            animation: fadeIn 2s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .header-title {
-            font-size: 0.9rem;
-            letter-spacing: 4px;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
             color: var(--accent);
-            margin-bottom: 30px;
-            font-weight: 300;
+            margin-bottom: 40px;
+            font-weight: 600;
         }
 
         .philosophy-text {
             line-height: 1.8;
             font-size: 1.05rem;
-            margin-bottom: 40px;
-            font-style: italic;
+            margin-bottom: 45px;
+            color: var(--text-main);
+            word-break: keep-all;
         }
 
+        /* [수정됨] 명상 질문 - 선명하고 진하게 */
         .meditation-quest {
-            margin: 40px 0;
-            color: var(--text-sub);
-            font-weight: 300;
+            margin: 45px 0;
+            color: #000000; /* 완전한 블랙으로 선명도 확보 */
+            font-weight: 600; /* 두께를 주어 존재감 강조 */
+            font-size: 1.2rem; /* 크기를 키워 눈에 띄게 함 */
+            line-height: 1.6;
+            letter-spacing: -0.5px;
         }
 
         .main-wish {
-            font-size: 1.3rem;
-            margin-top: 30px;
-            font-weight: 400;
-            letter-spacing: 1px;
+            font-size: 1.4rem;
+            margin-top: 40px;
+            font-weight: 700;
+            color: var(--text-main);
         }
 
         .signature {
             display: block;
-            margin-top: 10px;
-            font-weight: 500;
+            margin-top: 15px;
+            font-weight: 600;
             color: var(--accent);
         }
 
         hr {
             border: 0;
             height: 1px;
-            background: linear-gradient(to right, transparent, #ccc, transparent);
-            margin: 40px 0;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+            margin: 45px 0;
         }
 
-        /* 입력 폼 스타일 */
         .energy-form {
             display: flex;
             flex-direction: column;
@@ -92,41 +88,40 @@
         }
 
         .input-field {
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 12px;
+            padding: 18px;
+            border: 1.5px solid #eee;
+            border-radius: 10px;
             outline: none;
             transition: 0.3s;
-            background: rgba(255,255,255,0.5);
+            font-size: 1rem;
         }
 
         .input-field:focus {
             border-color: var(--accent);
-            background: #fff;
         }
 
         .submit-btn {
-            background: var(--text-main);
+            background: #1a1a1a;
             color: #fff;
-            padding: 15px;
+            padding: 18px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 600;
-            transition: 0.4s;
+            font-weight: 700;
+            transition: 0.3s;
             letter-spacing: 1px;
         }
 
         .submit-btn:hover {
             background: var(--accent);
-            transform: translateY(-2px);
         }
 
         .ps-box {
-            margin-top: 30px;
-            font-size: 0.85rem;
-            color: var(--text-sub);
+            margin-top: 40px;
+            font-size: 0.95rem;
+            color: #555;
             line-height: 1.6;
+            font-style: italic;
         }
     </style>
 </head>
@@ -157,7 +152,7 @@
         </form>
 
         <div class="ps-box">
-            P.S. Share your energy as your heart leads! You don't have to care about the numbers. If your energy is low, it’s okay not to do it. Just take care of yourself!
+            P.S. Share your energy as your heart leads; you don't have to care about the numbers. If your energy is low, it’s okay not to do it. Just take care of yourself!
         </div>
     </div>
 
