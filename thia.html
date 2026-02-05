@@ -42,7 +42,7 @@
     }
 
     body.exiting {
-      animation: pageExit 1s ease-out forwards;
+      animation: pageExit 1.5s ease-out forwards;
     }
 
     /* ===== Background ===== */
@@ -585,7 +585,7 @@
         the golden gateway where threads of fate<br>
         dissolve into the eternal warmth of light.
       </p>
-      <div class="signature" id="homeLink">ease by Archeon THIA</div>
+      <div class="signature" id="peaceLink">ease by Archeon THIA</div>
     </div>
   </div>
 
@@ -709,14 +709,14 @@
         document.body.appendChild(watermark);
       });
 
-      // 페이지 전환 효과
-      const homeLink = document.getElementById('homeLink');
-      if (homeLink) {
-        homeLink.addEventListener('click', function() {
+      // peace 페이지로 우아한 전환
+      const peaceLink = document.getElementById('peaceLink');
+      if (peaceLink) {
+        peaceLink.addEventListener('click', function() {
           document.body.classList.add('exiting');
           setTimeout(() => {
             window.location.href = 'peace.html';
-          }, 1000);
+          }, 1500);
         });
       }
     })();
