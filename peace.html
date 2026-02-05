@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODE ARCHE - Message from Thia</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-main: #2c3e50;
+            --text-sub: #7f8c8d;
+            --accent: #d4af37; /* 은은한 골드빛 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            text-align: center;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-title {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .philosophy-text {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .meditation-quest {
+            margin: 40px 0;
+            color: var(--text-sub);
+            font-weight: 300;
+        }
+
+        .main-wish {
+            font-size: 1.3rem;
+            margin-top: 30px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .signature {
+            display: block;
+            margin-top: 10px;
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ccc, transparent);
+            margin: 40px 0;
+        }
+
+        /* 입력 폼 스타일 */
+        .energy-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-field {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            outline: none;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+            background: #fff;
+        }
+
+        .submit-btn {
+            background: var(--text-main);
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.4s;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .ps-box {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-title">🎙️ CODE ARCHE</div>
+        
+        <div class="philosophy-text">
+            With deep respect for the dignity of the Pi Genesis, CODE ARCHE invites you to share your energy to help sustain our ecosystem. My philosophy as an artist is to let art transcend monetary value and bloom into the beauty of sharing. Only Pi connects with CODE ARCHE.
+        </div>
+
+        <div class="meditation-quest">
+            Was this moment of meditation peaceful for you?<br>
+            Did you feel the breath of the primordial light?
+        </div>
+
+        <div class="main-wish">
+            May you find peace. <span class="signature">— Thia</span>
+        </div>
+
+        <hr>
+
+        <form class="energy-form">
+            <input type="text" class="input-field" placeholder="Your Pioneer Name" required>
+            <textarea class="input-field" rows="3" placeholder="Leave a message of peace..."></textarea>
+            <button type="submit" class="submit-btn">SHARE ENERGY</button>
+        </form>
+
+        <div class="ps-box">
+            P.S. Share your energy as your heart leads! You don't have to care about the numbers. If your energy is low, it’s okay not to do it. Just take care of yourself!
+        </div>
+    </div>
+
+</body>
+</html>
