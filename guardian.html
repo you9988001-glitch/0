@@ -1,270 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Arche Guardian Certificate</title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
-
-        body {
-            background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
-            margin: 0; padding: 50px 0;
-            display: flex; justify-content: center; align-items: flex-start;
-            min-height: 100vh; overflow-y: auto;
-        }
-
-        .certificate-container {
-            width: 850px; padding: 25px;
-            background: linear-gradient(135deg, #d4af37 0%, #f9f1c0 50%, #aa8913 100%);
-            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.7);
-            border-radius: 8px; margin-bottom: 50px;
-        }
-
-        .certificate-main {
-            background: #fffdf5;
-            padding: 80px 60px;
-            text-align: center;
-            border: 3px solid #aa8913;
-            position: relative;
-            background-image:
-                linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-        .title-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 26px;
-            color: #aa8913;
-            letter-spacing: 8px;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 55px;
-            color: #1a1a1a;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-
-        .declaration {
-            font-family: 'Libre Baskerville', serif;
-            font-size: 22px;
-            line-height: 1.9;
-            color: #333;
-            margin-bottom: 50px;
-        }
-
-        .auth-code {
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            color: #aa8913;
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .auth-code-value {
-            display: block;
-            font-size: 24px;
-            font-weight: 700;
-            color: #B83A3A;
-            letter-spacing: 3px;
-            margin-top: 10px;
-            text-shadow: 0 2px 6px rgba(184, 58, 58, 0.4);
-        }
-
-        .issuer-signature {
-            font-family: 'Cinzel', serif;
-            font-size: 28px;
-            font-weight: bold;
-            color: #aa8913;
-            margin-top: 30px;
-        }
-
-        .verify-btn {
-            background: transparent;
-            border: 1.5px solid #B83A3A;
-            color: #B83A3A;
-            padding: 12px 25px;
-            font-family: 'Cinzel', serif;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-            letter-spacing: 2px;
-            margin-top: 40px;
-        }
-
-        .verify-btn:hover {
-            background: #B83A3A;
-            color: #fffdf5;
-            box-shadow: 0 0 20px rgba(184, 58, 58, 0.4);
-        }
-
-        .verify-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .seal-stamp {
-            position: absolute;
-            bottom: 60px;
-            right: 80px;
-            width: 130px;
-            height: 130px;
-            background: rgba(212, 175, 55, 0.1);
-            border: 4px double #aa8913;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            color: #aa8913;
-            transform: rotate(-10deg);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #fffdf5;
-            padding: 50px 60px;
-            border-radius: 10px;
-            border: 3px solid #aa8913;
-            text-align: center;
-            max-width: 500px;
-        }
-
-        .modal-title {
-            font-family: 'Cinzel', serif;
-            font-size: 32px;
-            color: #aa8913;
-            margin-bottom: 20px;
-        }
-
-        .modal-text {
-            font-family: 'Libre Baskerville', serif;
-            font-size: 18px;
-            color: #333;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-
-        .modal-close-btn {
-            background: #aa8913;
-            color: #fffdf5;
-            border: none;
-            padding: 12px 30px;
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            cursor: pointer;
-            letter-spacing: 2px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Issue Guardian 연습장</title>
 </head>
+<body>
+  <h1>Issue Guardian Test Page</h1>
 
-<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+  <button id="call">서버 호출</button>
 
-<div class="certificate-container">
-    <div class="certificate-main">
+  <pre id="output">대기 중...</pre>
 
-        <div class="title-logo">CODE ARCHE</div>
+  <script>
+    document.getElementById("call").onclick = async () => {
+      const out = document.getElementById("output");
+      out.textContent = "호출 중...";
 
-        <h1>CERTIFICATE of<br>GUARDIANSHIP</h1>
-
-        <p class="declaration">
-            This solemnly certifies that the <b>Bearer</b> of this sacred document <br>
-            is hereby ordained as an eternal <b>Guardian of the Golden Nexus</b> <br>
-            within the hallowed bounds of the Code Arche ecosystem. <br><br>
-            May your spirit remain the beacon that illuminates <br>
-            the infinite light of our shared journey.
-        </p>
-
-        <div class="auth-code">
-            Authentication Code
-            <span class="auth-code-value" id="authCode">ISSUING...</span>
-        </div>
-
-        <div class="issuer-signature">
-            Master of Code Arche, THIA
-        </div>
-
-        <button class="verify-btn" id="verifyBtn" onclick="verifyAuth()">
-            VERIFY AUTHENTICITY
-        </button>
-
-        <div class="seal-stamp">OFFICIAL<br>GUARDIAN</div>
-
-    </div>
-</div>
-
-<div class="modal" id="successModal">
-    <div class="modal-content">
-        <div class="modal-title">✓ 인증 성공</div>
-        <div class="modal-text">
-            <strong>진품입니다.</strong><br><br>
-            이 증서는 CODE ARCHE에서 발행한<br>
-            정식 가디언 증서입니다.
-        </div>
-        <button class="modal-close-btn" onclick="closeModal()">확인</button>
-    </div>
-</div>
-
-<script>
-async function verifyAuth() {
-    const btn = document.getElementById('verifyBtn');
-    const codeEl = document.getElementById('authCode');
-
-    btn.disabled = true;
-    btn.textContent = 'VERIFYING...';
-
-    try {
-        const response = await fetch('/api/issue-guardian', {
-            method: 'POST'
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            codeEl.textContent = 'ISSUANCE CLOSED';
-            throw new Error('LIMIT');
-        }
-
-        codeEl.textContent = data.code;
-
-        setTimeout(() => {
-            btn.textContent = 'VERIFY AUTHENTICITY';
-            btn.disabled = false;
-            document.getElementById('successModal').classList.add('show');
-        }, 600);
-
-    } catch (e) {
-        btn.textContent = 'VERIFY AUTHENTICITY';
-        btn.disabled = false;
-        alert('Guardian issuance has been sealed.');
-    }
-}
-
-function closeModal() {
-    document.getElementById('successModal').classList.remove('show');
-}
-</script>
-
+      try {
+        const res = await fetch("/api/issue-guardian");
+        const data = await res.json();
+        out.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        out.textContent = "에러: " + err.message;
+      }
+    };
+  </script>
 </body>
 </html>
