@@ -1,12 +1,18 @@
-let counter = 1;
+// Vercel Serverless Function
+let count = 0;
 
 export default function handler(req, res) {
-  counter += 1;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'POST only' });
+  }
 
-  const code =
-    `CODE-ARCHE-2026-THIA-${String(counter).padStart(4,'0')}`;
+  count += 1;
 
-  console.log('ISSUED:', code);
+  // 개발자가 "서버가 알고 있는 숫자"를 확인하는 유일한 증거
+  console.log('[ISSUE-GUARDIAN] current count =', count);
 
-  res.status(200).json({ code });
+  res.status(200).json({
+    ok: true,
+    issuedNumber: count
+  });
 }
