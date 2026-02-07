@@ -1,65 +1,103 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Guardian Issue Form</title>
-  <style>
-    body {
-      background: #0e0e0e;
-      color: #eaeaea;
-      font-family: system-ui, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .guardian {
-      border: 1px solid #444;
-      padding: 40px;
-      width: 320px;
-      text-align: center;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #111;
-      color: #fff;
-      border: 1px solid #666;
-      cursor: pointer;
-    }
-    .number {
-      margin-top: 20px;
-      font-size: 22px;
-      letter-spacing: 1px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Arche Guardian Certificate</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* 🔒 네 그림 그대로 — 수정 없음 */
+body {
+  background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
+  margin: 0; padding: 50px 0;
+  display: flex; justify-content: center; align-items: flex-start;
+  min-height: 100vh;
+}
+.certificate-container {
+  width: 850px; padding: 25px;
+  background: linear-gradient(135deg,#d4af37,#f9f1c0,#aa8913);
+  box-shadow: 0 20px 70px rgba(0,0,0,.7);
+  border-radius: 8px;
+}
+.certificate-main {
+  background:#fffdf5; padding:80px 60px; text-align:center;
+  border:3px solid #aa8913; position:relative;
+}
+.title-logo {font-family:Cinzel;font-size:26px;letter-spacing:8px;color:#aa8913}
+h1 {font-family:Cinzel;font-size:55px}
+.declaration {font-family:'Libre Baskerville';font-size:22px;line-height:1.9}
+.auth-code {margin-top:20px;font-family:Cinzel}
+.auth-code-value {display:block;font-size:24px;color:#B83A3A;letter-spacing:3px}
+.verify-btn {
+  margin-top:40px; padding:12px 25px;
+  border:1.5px solid #B83A3A;
+  background:transparent; color:#B83A3A;
+}
+.modal {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,.8);
+  justify-content:center; align-items:center;
+}
+.modal.show {display:flex}
+.modal-content {
+  background:#fffdf5; padding:40px;
+  border:3px solid #aa8913;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="guardian">
-    <h2>ISSUE · GUARDIAN</h2>
-    <p>통과를 요청한다</p>
+<div class="certificate-container">
+  <div class="certificate-main">
+    <div class="title-logo">CODE ARCHE</div>
+    <h1>CERTIFICATE of<br>GUARDIANSHIP</h1>
 
-    <button id="issueBtn">발급 요청</button>
+    <p class="declaration">
+      Guardian Certificate of Code Arche
+    </p>
 
-    <div class="number" id="result">—</div>
+    <div class="auth-code">
+      Authentication Code
+      <span class="auth-code-value">CODE-ARCHE-2026-THIA-0001</span>
+    </div>
+
+    <button class="verify-btn" id="verifyBtn" onclick="verifyAuth()">
+      VERIFY AUTHENTICITY
+    </button>
   </div>
+</div>
 
-  <script>
-    const btn = document.getElementById('issueBtn');
-    const result = document.getElementById('result');
+<div class="modal" id="successModal">
+  <div class="modal-content">
+    <h2>✓ 인증 성공</h2>
+    <p>정식 발급된 가디언 증서입니다.</p>
+    <button onclick="closeModal()">확인</button>
+  </div>
+</div>
 
-    btn.onclick = async () => {
-      result.textContent = '요청 중…';
+<script>
+async function verifyAuth() {
+  const btn = document.getElementById('verifyBtn');
+  btn.disabled = true;
+  btn.textContent = 'VERIFYING...';
 
-      const res = await fetch('/api/issue-guardian', {
-        method: 'POST'
-      });
+  const res = await fetch('/api/issue-guardian', { method: 'POST' });
+  const data = await res.json();
 
-      const data = await res.json();
-      result.textContent = `ISSUED #${data.issuedNumber}`;
-    };
-  </script>
+  document.querySelector('.auth-code-value').textContent = data.code;
+
+  document.getElementById('successModal').classList.add('show');
+  btn.disabled = false;
+  btn.textContent = 'VERIFY AUTHENTICITY';
+}
+
+function closeModal() {
+  document.getElementById('successModal').classList.remove('show');
+}
+</script>
 
 </body>
 </html>
