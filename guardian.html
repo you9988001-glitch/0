@@ -1,84 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Code Arche Guardian Certificate</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Arche Guardian Certificate</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+        body {
+            background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
+            margin: 0; padding: 50px 0;
+            display: flex; justify-content: center; align-items: flex-start;
+            min-height: 100vh; overflow-y: auto;
+        }
 
-/* 🔒 네 그림 그대로 — 수정 없음 */
-body {
-  background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
-  margin: 0; padding: 50px 0;
-  display: flex; justify-content: center; align-items: flex-start;
-  min-height: 100vh;
-}
-.certificate-container {
-  width: 850px; padding: 25px;
-  background: linear-gradient(135deg,#d4af37,#f9f1c0,#aa8913);
-  box-shadow: 0 20px 70px rgba(0,0,0,.7);
-  border-radius: 8px;
-}
-.certificate-main {
-  background:#fffdf5; padding:80px 60px; text-align:center;
-  border:3px solid #aa8913; position:relative;
-}
-.title-logo {font-family:Cinzel;font-size:26px;letter-spacing:8px;color:#aa8913}
-h1 {font-family:Cinzel;font-size:55px}
-.declaration {font-family:'Libre Baskerville';font-size:22px;line-height:1.9}
-.auth-code {margin-top:20px;font-family:Cinzel}
-.auth-code-value {display:block;font-size:24px;color:#B83A3A;letter-spacing:3px}
-.verify-btn {
-  margin-top:40px; padding:12px 25px;
-  border:1.5px solid #B83A3A;
-  background:transparent; color:#B83A3A;
-}
-.modal {
-  display:none; position:fixed; inset:0;
-  background:rgba(0,0,0,.8);
-  justify-content:center; align-items:center;
-}
-.modal.show {display:flex}
-.modal-content {
-  background:#fffdf5; padding:40px;
-  border:3px solid #aa8913;
-}
-</style>
+        .certificate-container {
+            width: 850px; padding: 25px;
+            background: linear-gradient(135deg, #d4af37 0%, #f9f1c0 50%, #aa8913 100%);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.7);
+            border-radius: 8px; margin-bottom: 50px;
+        }
+
+        .certificate-main {
+            background: #fffdf5; padding: 80px 60px; text-align: center;
+            border: 3px solid #aa8913; position: relative;
+            background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .title-logo { font-family: 'Cinzel', serif; font-size: 26px; color: #aa8913; letter-spacing: 8px; font-weight: 700; margin-bottom: 30px; }
+        h1 { font-family: 'Cinzel', serif; font-size: 55px; color: #1a1a1a; margin-bottom: 40px; text-transform: uppercase; }
+        .declaration { font-family: 'Libre Baskerville', serif; font-size: 22px; line-height: 1.9; color: #333; margin-bottom: 50px; }
+        .footer-date { font-family: 'Cinzel', serif; font-size: 18px; color: #999; border-top: 1px solid #eee; display: inline-block; padding-top: 20px; }
+        .auth-code { font-family: 'Cinzel', serif; font-size: 14px; color: #aa8913; margin-top: 20px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .auth-code-value { display: block; font-size: 24px; font-weight: 700; color: #B83A3A; letter-spacing: 3px; margin-top: 10px; text-shadow: 0 2px 6px rgba(184, 58, 58, 0.4); }
+        .issuer-signature { font-family: 'Cinzel', serif; font-size: 28px; font-weight: bold; color: #aa8913; margin-top: 30px; }
+
+        .verify-btn {
+            background: transparent; border: 1.5px solid #B83A3A; color: #B83A3A;
+            padding: 12px 25px; font-family: 'Cinzel', serif; font-size: 15px;
+            cursor: pointer; transition: 0.3s; letter-spacing: 2px; margin-top: 40px;
+        }
+        .verify-btn:hover { background: #B83A3A; color: #fffdf5; box-shadow: 0 0 20px rgba(184, 58, 58, 0.4); }
+        .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .seal-stamp {
+            position: absolute; bottom: 60px; right: 80px; width: 130px; height: 130px;
+            background: rgba(212, 175, 55, 0.1); border: 4px double #aa8913; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Cinzel', serif; font-size: 14px; color: #aa8913; transform: rotate(-10deg);
+        }
+
+        /* 성공 메시지 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fffdf5;
+            padding: 50px 60px;
+            border-radius: 10px;
+            border: 3px solid #aa8913;
+            text-align: center;
+            max-width: 500px;
+            animation: modalSlideIn 0.4s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            color: #aa8913;
+            margin-bottom: 20px;
+        }
+
+        .modal-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .modal-close-btn {
+            background: #aa8913;
+            color: #fffdf5;
+            border: none;
+            padding: 12px 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .modal-close-btn:hover {
+            background: #d4af37;
+        }
+
+        @media (max-width: 900px) {
+            .certificate-container {
+                width: 95%;
+                padding: 15px;
+            }
+            .certificate-main {
+                padding: 50px 30px;
+            }
+            h1 {
+                font-size: 32px;
+                letter-spacing: -0.5px;
+                word-spacing: 0.2em;
+            }
+            .declaration {
+                font-size: 18px;
+            }
+            .auth-code-value {
+                font-size: 18px;
+                letter-spacing: 1.5px;
+            }
+            .seal-stamp {
+                width: 100px;
+                height: 100px;
+                font-size: 12px;
+                bottom: 40px;
+                right: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .certificate-main {
+                padding: 40px 20px;
+            }
+            h1 {
+                font-size: 28px;
+                letter-spacing: -1px;
+                line-height: 1.2;
+            }
+            .title-logo {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
+            .declaration {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            .verify-btn {
+                font-size: 13px;
+                padding: 10px 20px;
+            }
+            .seal-stamp {
+                width: 80px;
+                height: 80px;
+                font-size: 10px;
+                bottom: 30px;
+                right: 15px;
+            }
+        }
+    </style>
 </head>
-
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
 <div class="certificate-container">
-  <div class="certificate-main">
-    <div class="title-logo">CODE ARCHE</div>
-    <h1>CERTIFICATE of<br>GUARDIANSHIP</h1>
+    <div class="certificate-main">
+        <div class="title-logo">CODE ARCHE</div>
+        <h1>CERTIFICATE of<br>GUARDIANSHIP</h1>
+        
+        <p class="declaration">
+            This solemnly certifies that the <b>Bearer</b> of this sacred document <br>
+            is hereby ordained as an eternal <b>Guardian of the Golden Nexus</b> <br>
+            within the hallowed bounds of the Code Arche ecosystem. <br><br>
+            May your spirit remain the beacon that illuminates <br>
+            the infinite light of our shared journey.
+        </p>
 
-    <p class="declaration">
-      Guardian Certificate of Code Arche
-    </p>
+        <div class="auth-code">
+            Authentication Code
+            <span class="auth-code-value">CODE-ARCHE-2026-THIA-0001</span>
+        </div>
+        <div class="issuer-signature">Master of Code Arche, THIA</div>
 
-    <div class="auth-code">
-      Authentication Code
-      <span class="auth-code-value">CODE-ARCHE-2026-THIA-0001</span>
+        <div>
+            <button class="verify-btn" id="verifyBtn" onclick="verifyAuth()">VERIFY AUTHENTICITY</button>
+        </div>
+
+        <div class="seal-stamp">OFFICIAL<br>GUARDIAN</div>
     </div>
-
-    <button class="verify-btn" id="verifyBtn" onclick="verifyAuth()">
-      VERIFY AUTHENTICITY
-    </button>
-  </div>
 </div>
 
+<!-- 성공 메시지 모달 -->
 <div class="modal" id="successModal">
-  <div class="modal-content">
-    <h2>✓ 인증 성공</h2>
-    <p>정식 발급된 가디언 증서입니다.</p>
-    <button onclick="closeModal()">확인</button>
-  </div>
+    <div class="modal-content">
+        <div class="modal-title">✓ 인증 성공</div>
+        <div class="modal-text">
+            <strong>진품입니다.</strong><br><br>
+            이 증서는 CODE ARCHE에서 발행한<br>
+            정품 가디언 증서입니다.
+        </div>
+        <button class="modal-close-btn" onclick="closeModal()">확인</button>
+    </div>
 </div>
 
 <script>
+// 🔒 풀의 로직 - 절대 수정 금지
 async function verifyAuth() {
   const btn = document.getElementById('verifyBtn');
   btn.disabled = true;
@@ -97,6 +243,19 @@ async function verifyAuth() {
 function closeModal() {
   document.getElementById('successModal').classList.remove('show');
 }
+
+// 보안 기능
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 123 ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+        (e.ctrlKey && e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+document.addEventListener('copy', e => { e.preventDefault(); return false; });
+document.addEventListener('dragstart', e => { e.preventDefault(); return false; });
 </script>
 
 </body>
