@@ -1,29 +1,57 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Issue Guardian 연습장</title>
+  <meta charset="UTF-8" />
+  <title>Guardian Issuance</title>
+  <style>
+    body {
+      background: #0e0e0e;
+      color: #eaeaea;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #panel {
+      border: 1px solid #555;
+      padding: 30px;
+      width: 460px;
+      text-align: center;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 24px;
+      background: black;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+      cursor: pointer;
+    }
+    pre {
+      text-align: left;
+      margin-top: 20px;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
-  <h1>Issue Guardian Test Page</h1>
 
-  <button id="call">서버 호출</button>
+<div id="panel">
+  <h2>GUARDIAN CERTIFICATE</h2>
+  <button onclick="issueGuardian()">ISSUE CERTIFICATE</button>
+  <pre id="output">READY</pre>
+</div>
 
-  <pre id="output">대기 중...</pre>
+<script>
+async function issueGuardian() {
+  document.getElementById("output").textContent = "ISSUING...";
+  const res = await fetch("/api/issue-guardian", { method: "POST" });
+  const data = await res.json();
+  document.getElementById("output").textContent =
+    JSON.stringify(data, null, 2);
+}
+</script>
 
-  <script>
-    document.getElementById("call").onclick = async () => {
-      const out = document.getElementById("output");
-      out.textContent = "호출 중...";
-
-      try {
-        const res = await fetch("/api/issue-guardian");
-        const data = await res.json();
-        out.textContent = JSON.stringify(data, null, 2);
-      } catch (err) {
-        out.textContent = "에러: " + err.message;
-      }
-    };
-  </script>
 </body>
 </html>
