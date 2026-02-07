@@ -1,57 +1,97 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Guardian Issuance</title>
-  <style>
-    body {
-      background: #0e0e0e;
-      color: #eaeaea;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    #panel {
-      border: 1px solid #555;
-      padding: 30px;
-      width: 460px;
-      text-align: center;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 24px;
-      background: black;
-      color: #00ff99;
-      border: 1px solid #00ff99;
-      cursor: pointer;
-    }
-    pre {
-      text-align: left;
-      margin-top: 20px;
-      font-size: 12px;
-      white-space: pre-wrap;
-    }
-  </style>
-</head>
-<body>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guardian Certificate</title>
 
-<div id="panel">
-  <h2>GUARDIAN CERTIFICATE</h2>
-  <button onclick="issueGuardian()">ISSUE CERTIFICATE</button>
-  <pre id="output">READY</pre>
+<style>
+body {
+  background: radial-gradient(circle, #2c2c2c, #000);
+  margin: 0;
+  padding: 40px;
+}
+
+.certificate-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #d4af37, #fff6c0, #aa8913);
+  padding: 20px;
+}
+
+.certificate-main {
+  background: #fffdf5;
+  border: 3px solid #aa8913;
+  padding: 60px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+.declaration {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.auth-code {
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.auth-code-value {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  color: #b83a3a;
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 40px;
+  padding: 14px 28px;
+  border: 2px solid #b83a3a;
+  background: transparent;
+  color: #b83a3a;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #b83a3a;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+<div class="certificate-container">
+  <div class="certificate-main">
+    <h1>GUARDIAN CERTIFICATE</h1>
+
+    <p class="declaration">
+      This certifies the bearer as a Guardian of Code Arche.
+    </p>
+
+    <div class="auth-code">
+      Authentication Code
+      <span id="authCode" class="auth-code-value">
+        CODE-ARCHE-2026-THIA-0000
+      </span>
+    </div>
+
+    <button onclick="issue()">ISSUE CERTIFICATE</button>
+  </div>
 </div>
 
 <script>
-async function issueGuardian() {
-  document.getElementById("output").textContent = "ISSUING...";
+async function issue() {
   const res = await fetch("/api/issue-guardian", { method: "POST" });
   const data = await res.json();
-  document.getElementById("output").textContent =
-    JSON.stringify(data, null, 2);
+  document.getElementById("authCode").textContent = data.code;
 }
 </script>
-
 </body>
 </html>
