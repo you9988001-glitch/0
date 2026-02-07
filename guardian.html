@@ -188,33 +188,24 @@
         btn.disabled = true;
         btn.textContent = 'VERIFYING...';
 
-        // 현재 날짜와 시간
-        const now = new Date();
-        const timestamp = now.toLocaleString('ko-KR', { 
-            timeZone: 'Asia/Seoul',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
-
-        // FormSubmit으로 이메일 전송
-        const formData = new FormData();
-        formData.append('_subject', 'CODE ARCHE - Guardian Certificate Verification');
-        formData.append('Verification Time', timestamp);
-        formData.append('Certificate Type', 'Guardian Certificate');
-        formData.append('Status', 'Authentic - Verified');
-        formData.append('_template', 'box');
-
         try {
-            await fetch('https://formsubmit.co/you9988001@gmail.com', {
+            // Vercel API Route로 요청
+            const response = await fetch('/api/verify-guardian', {
                 method: 'POST',
-                body: formData,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    timestamp: new Date().toLocaleString('ko-KR', { 
+                        timeZone: 'Asia/Seoul',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    })
+                })
             });
 
             // 성공 모달 표시
