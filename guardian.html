@@ -32,6 +32,8 @@
         h1 { font-family: 'Cinzel', serif; font-size: 55px; color: #1a1a1a; margin-bottom: 40px; text-transform: uppercase; }
         .declaration { font-family: 'Libre Baskerville', serif; font-size: 22px; line-height: 1.9; color: #333; margin-bottom: 50px; }
         .footer-date { font-family: 'Cinzel', serif; font-size: 18px; color: #999; border-top: 1px solid #eee; display: inline-block; padding-top: 20px; }
+        .auth-code { font-family: 'Cinzel', serif; font-size: 14px; color: #aa8913; margin-top: 20px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .auth-code-value { display: block; font-size: 24px; font-weight: 700; color: #B83A3A; letter-spacing: 3px; margin-top: 10px; text-shadow: 0 2px 6px rgba(184, 58, 58, 0.4); }
         .issuer-signature { font-family: 'Cinzel', serif; font-size: 28px; font-weight: bold; color: #aa8913; margin-top: 30px; }
 
         .verify-btn {
@@ -133,6 +135,10 @@
             .declaration {
                 font-size: 18px;
             }
+            .auth-code-value {
+                font-size: 18px;
+                letter-spacing: 1.5px;
+            }
             .seal-stamp {
                 width: 100px;
                 height: 100px;
@@ -158,7 +164,10 @@
             the infinite light of our shared journey.
         </p>
 
-        <div class="footer-date">Issued on: February 7, 2026</div>
+        <div class="auth-code">
+            Authentication Code
+            <span class="auth-code-value">CODE ARCHE-2026-THIA-0001</span>
+        </div>
         <div class="issuer-signature">Master of Code Arche, THIA</div>
 
         <div>
