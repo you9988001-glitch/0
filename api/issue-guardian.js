@@ -1,29 +1,14 @@
-import express from "express";
-import crypto from "crypto";
+let count = 0;
 
-const router = express.Router();
+export default function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).end();
+  }
 
-router.post("/issue-guardian", (req, res) => {
-  const issuedAt = new Date().toISOString();
-  const guardianId = crypto.randomUUID();
+  count += 1;
 
-  const payload = {
-    guardianId,
-    issuedAt,
-    authority: "Guardian Authority v1",
-    status: "ISSUED"
-  };
+  const padded = String(count).padStart(4, "0");
+  const code = `CODE-ARCHE-2026-THIA-${padded}`;
 
-  const signature = crypto
-    .createHash("sha256")
-    .update(JSON.stringify(payload))
-    .digest("hex");
-
-  res.json({
-    ok: true,
-    certificate: payload,
-    signature
-  });
-});
-
-export default router;
+  res.status(200).json({ code });
+}
