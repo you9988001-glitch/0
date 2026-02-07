@@ -37,11 +37,11 @@
         .issuer-signature { font-family: 'Cinzel', serif; font-size: 28px; font-weight: bold; color: #aa8913; margin-top: 30px; }
 
         .verify-btn {
-            background: transparent; border: 1.5px solid #aa8913; color: #aa8913;
+            background: transparent; border: 1.5px solid #B83A3A; color: #B83A3A;
             padding: 12px 25px; font-family: 'Cinzel', serif; font-size: 15px;
             cursor: pointer; transition: 0.3s; letter-spacing: 2px; margin-top: 40px;
         }
-        .verify-btn:hover { background: #aa8913; color: #fffdf5; box-shadow: 0 0 20px rgba(170, 137, 19, 0.4); }
+        .verify-btn:hover { background: #B83A3A; color: #fffdf5; box-shadow: 0 0 20px rgba(184, 58, 58, 0.4); }
         .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .seal-stamp {
@@ -130,7 +130,9 @@
                 padding: 50px 30px;
             }
             h1 {
-                font-size: 40px;
+                font-size: 32px;
+                letter-spacing: -0.5px;
+                word-spacing: 0.2em;
             }
             .declaration {
                 font-size: 18px;
@@ -145,6 +147,36 @@
                 font-size: 12px;
                 bottom: 40px;
                 right: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .certificate-main {
+                padding: 40px 20px;
+            }
+            h1 {
+                font-size: 28px;
+                letter-spacing: -1px;
+                line-height: 1.2;
+            }
+            .title-logo {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
+            .declaration {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            .verify-btn {
+                font-size: 13px;
+                padding: 10px 20px;
+            }
+            .seal-stamp {
+                width: 80px;
+                height: 80px;
+                font-size: 10px;
+                bottom: 30px;
+                right: 15px;
             }
         }
     </style>
@@ -166,7 +198,7 @@
 
         <div class="auth-code">
             Authentication Code
-            <span class="auth-code-value">CODE ARCHE-2026-THIA-0001</span>
+            <span class="auth-code-value">CODE-ARCHE-2026-THIA-0001</span>
         </div>
         <div class="issuer-signature">Master of Code Arche, THIA</div>
 
