@@ -11,13 +11,11 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        /* 크기를 대폭 줄여서 미니멀하게 조정 */
         width: auto; 
         min-width: 130px; 
         height: 32px; 
         background: rgba(13, 26, 45, 0.92);
         backdrop-filter: blur(15px);
-        /* 부드러운 둥근 모서리 유지 */
         border-radius: 16px; 
         border: 1px solid rgba(212, 165, 116, 0.4);
         cursor: pointer;
@@ -34,13 +32,13 @@
     .content-wrapper {
         display: flex;
         align-items: center;
-        gap: 8px; /* 간격도 콤팩트하게 */
+        gap: 8px;
         position: relative;
         z-index: 2;
     }
 
     .nexus-seed {
-        width: 4px; /* 씨앗 크기도 작게 */
+        width: 4px;
         height: 4px;
         background: #fff;
         border-radius: 50%;
@@ -50,7 +48,7 @@
     }
 
     .nexus-compact .title {
-        font-size: 0.52rem; /* 작은 크기에서도 읽히는 최소 사이즈 */
+        font-size: 0.52rem;
         color: #e8eef5;
         font-weight: 500;
         letter-spacing: 1.5px;
@@ -66,7 +64,6 @@
         background: radial-gradient(circle at 10% 50%, rgba(212, 165, 116, 0.1) 0%, transparent 60%);
     }
 
-    /* 호버 시 살짝만 강조하여 방해하지 않음 */
     #arche-nexus:hover {
         transform: translateY(-3px);
         background: rgba(29, 45, 71, 0.98);
@@ -84,7 +81,6 @@
         100% { opacity: 1; transform: scale(1.1); }
     }
 
-    /* 모바일 환경 최적화 */
     @media (max-width: 480px) {
         #arche-nexus {
             min-width: 110px;
@@ -104,7 +100,7 @@
     document.getElementById('arche-nexus').addEventListener('click', function() {
         this.style.opacity = '0';
         setTimeout(() => {
-            window.location.href = 'index.html'; 
+            window.location.href = 'guardian.html'; 
         }, 400);
     });
 </script>
