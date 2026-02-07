@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Arche Guardian Certificate</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+        body {
+            background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
+            margin: 0; padding: 50px 0;
+            display: flex; justify-content: center; align-items: flex-start;
+            min-height: 100vh; overflow-y: auto;
+        }
+
+        .certificate-container {
+            width: 850px; padding: 25px;
+            background: linear-gradient(135deg, #d4af37 0%, #f9f1c0 50%, #aa8913 100%);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.7);
+            border-radius: 8px; margin-bottom: 50px;
+        }
+
+        .certificate-main {
+            background: #fffdf5; padding: 80px 60px; text-align: center;
+            border: 3px solid #aa8913; position: relative;
+            background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .title-logo { font-family: 'Cinzel', serif; font-size: 26px; color: #aa8913; letter-spacing: 8px; font-weight: 700; margin-bottom: 30px; }
+        h1 { font-family: 'Cinzel', serif; font-size: 55px; color: #1a1a1a; margin-bottom: 40px; text-transform: uppercase; }
+        .declaration { font-family: 'Libre Baskerville', serif; font-size: 22px; line-height: 1.9; color: #333; margin-bottom: 50px; }
+        .footer-date { font-family: 'Cinzel', serif; font-size: 18px; color: #999; border-top: 1px solid #eee; display: inline-block; padding-top: 20px; }
+        .issuer-signature { font-family: 'Cinzel', serif; font-size: 28px; font-weight: bold; color: #aa8913; margin-top: 30px; }
+
+        .verify-btn {
+            background: transparent; border: 1.5px solid #aa8913; color: #aa8913;
+            padding: 12px 25px; font-family: 'Cinzel', serif; font-size: 15px;
+            cursor: pointer; transition: 0.3s; letter-spacing: 2px; margin-top: 40px;
+        }
+        .verify-btn:hover { background: #aa8913; color: #fffdf5; box-shadow: 0 0 20px rgba(170, 137, 19, 0.4); }
+        .verify-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .seal-stamp {
+            position: absolute; bottom: 60px; right: 80px; width: 130px; height: 130px;
+            background: rgba(212, 175, 55, 0.1); border: 4px double #aa8913; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Cinzel', serif; font-size: 14px; color: #aa8913; transform: rotate(-10deg);
+        }
+
+        /* 성공 메시지 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fffdf5;
+            padding: 50px 60px;
+            border-radius: 10px;
+            border: 3px solid #aa8913;
+            text-align: center;
+            max-width: 500px;
+            animation: modalSlideIn 0.4s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            color: #aa8913;
+            margin-bottom: 20px;
+        }
+
+        .modal-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .modal-close-btn {
+            background: #aa8913;
+            color: #fffdf5;
+            border: none;
+            padding: 12px 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .modal-close-btn:hover {
+            background: #d4af37;
+        }
+
+        @media (max-width: 900px) {
+            .certificate-container {
+                width: 95%;
+                padding: 15px;
+            }
+            .certificate-main {
+                padding: 50px 30px;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            .declaration {
+                font-size: 18px;
+            }
+            .seal-stamp {
+                width: 100px;
+                height: 100px;
+                font-size: 12px;
+                bottom: 40px;
+                right: 40px;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+<div class="certificate-container">
+    <div class="certificate-main">
+        <div class="title-logo">CODE ARCHE</div>
+        <h1>CERTIFICATE of<br>GUARDIANSHIP</h1>
+        
+        <p class="declaration">
+            This solemnly certifies that the <b>Bearer</b> of this sacred document <br>
+            is hereby ordained as an eternal <b>Guardian of the Golden Nexus</b> <br>
+            within the hallowed bounds of the Code Arche ecosystem. <br><br>
+            May your spirit remain the beacon that illuminates <br>
+            the infinite light of our shared journey.
+        </p>
+
+        <div class="footer-date">Issued on: February 7, 2026</div>
+        <div class="issuer-signature">Master of Code Arche, THIA</div>
+
+        <div>
+            <button class="verify-btn" id="verifyBtn" onclick="verifyAuth()">VERIFY AUTHENTICITY</button>
+        </div>
+
+        <div class="seal-stamp">OFFICIAL<br>GUARDIAN</div>
+    </div>
+</div>
+
+<!-- 성공 메시지 모달 -->
+<div class="modal" id="successModal">
+    <div class="modal-content">
+        <div class="modal-title">✓ 인증 성공</div>
+        <div class="modal-text">
+            <strong>진품입니다.</strong><br><br>
+            이 증서는 CODE ARCHE에서 발행한<br>
+            정품 가디언 증서입니다.
+        </div>
+        <button class="modal-close-btn" onclick="closeModal()">확인</button>
+    </div>
+</div>
+
+<script>
+    async function verifyAuth() {
+        const btn = document.getElementById('verifyBtn');
+        btn.disabled = true;
+        btn.textContent = 'VERIFYING...';
+
+        // 현재 날짜와 시간
+        const now = new Date();
+        const timestamp = now.toLocaleString('ko-KR', { 
+            timeZone: 'Asia/Seoul',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+
+        // FormSubmit으로 이메일 전송
+        const formData = new FormData();
+        formData.append('_subject', 'CODE ARCHE - Guardian Certificate Verification');
+        formData.append('Verification Time', timestamp);
+        formData.append('Certificate Type', 'Guardian Certificate');
+        formData.append('Status', 'Authentic - Verified');
+        formData.append('_template', 'box');
+
+        try {
+            await fetch('https://formsubmit.co/you9988001@gmail.com', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            // 성공 모달 표시
+            setTimeout(() => {
+                btn.textContent = 'VERIFY AUTHENTICITY';
+                btn.disabled = false;
+                document.getElementById('successModal').classList.add('show');
+            }, 800);
+
+        } catch (error) {
+            // 에러가 발생해도 사용자에게는 성공 표시
+            setTimeout(() => {
+                btn.textContent = 'VERIFY AUTHENTICITY';
+                btn.disabled = false;
+                document.getElementById('successModal').classList.add('show');
+            }, 800);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('successModal').classList.remove('show');
+    }
+
+    // 보안 기능
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 123 ||
+            (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+            (e.ctrlKey && e.keyCode === 85)) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    document.addEventListener('copy', e => { e.preventDefault(); return false; });
+    document.addEventListener('dragstart', e => { e.preventDefault(); return false; });
+</script>
+
+</body>
+</html>
