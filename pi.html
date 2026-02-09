@@ -426,71 +426,96 @@ function setVerifiedUI() {
   submitBtn.disabled = false;
   successBanner.style.display = "block";
   successBanner.textContent = "Thank you, future Guardian.";
-}
-
-<script src="https://sdk.minepi.com/pi-sdk.js"></script>
-
+} 
+    
 <script>
-window.addEventListener("load", () => {
-  Pi.init({
-    version: "2.0",
-    sandbox: true
-  });
+/* ===============================
+   Pi 결제 로직 (정상 구조)
+   =============================== */
+
+Pi.init({
+  version: "2.0",
+  sandbox: true
 });
 
-function setLog(msg) {
-  console.log(msg);
-}
-
 function onIncompletePaymentFound(payment) {
-  console.log("미완료 결제 존재");
+  setLog("미완료 결제가 있습니다. Pi Wallet에서 취소 후 다시 시도하세요.");
 }
 
-function ensureAuth() {
+async function ensureAuth() {
   return new Promise((resolve, reject) => {
-    let done = false;
+    let finished = false;
 
     Pi.authenticate(
       ["payments"],
-      { onIncompletePaymentFound }
+      onIncompletePaymentFound
     )
     .then(auth => {
-      done = true;
+      finished = true;
       resolve(auth);
     })
     .catch(err => {
-      done = true;
+      finished = true;
       reject(err);
     });
 
     setTimeout(() => {
-      if (!done) reject("auth timeout");
+      if (!finished) reject("Pi 인증 시간 초과");
     }, 10000);
   });
 }
 
-async function startTestPayment() {
+async function startPayment() {
   try {
+    setLog("Pi 인증 중…");
     await ensureAuth();
 
-    await Pi.createPayment(
+    setLog("결제 생성 중…");
+
+    Pi.createPayment(
       {
-        amount: 1,
-        memo: "Test Payment",
-        metadata: { test: true }
+        amount: 0.01,
+        memo: "Code Arche Guardian verification",
+        metadata: { app: "code-arche" }
       },
       {
-        onReadyForServerApproval: id => console.log("approve", id),
-        onReadyForServerCompletion: id => console.log("complete", id),
-        onCancel: () => console.log("cancel"),
-        onError: e => console.error(e)
+        onReadyForServerApproval: async (paymentId) => {
+          setLog("서버 승인 요청 중…");
+          await fetch("/api/approve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ paymentId })
+          });
+        },
+
+        onReadyForServerCompletion: async (paymentId, txid) => {
+          setLog("결제 완료 처리 중…");
+          const r = await fetch("/api/complete", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ paymentId, txid })
+          });
+
+          if (!r.ok) throw new Error("서버 완료 실패");
+
+          proofToken = "ok";
+          setVerifiedUI();
+          setLog("결제 완료 ✅ 제출 가능");
+        },
+
+        onCancel: () => setLog("결제가 취소되었습니다."),
+        onError: (e) => setLog("결제 오류: " + (e?.message || e))
       }
     );
+
   } catch (e) {
-    console.error("결제 중단", e);
+    setLog("초기화 실패: " + e);
   }
 }
+
+document.getElementById("payBtn").onclick = startPayment;
 </script>
+
 
 </body>
 </html>
