@@ -1,314 +1,298 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5KJZ6B9F');
-  </script>
-  <!-- End Google Tag Manager -->
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>code arche49-Pass | CODE ARCHE</title>
-
-  <style>
-    :root{
-      --pi-gold:#ffa500;
-      --arche-dark:#0f0f0f;
-      --arche-white:#e0e0e0;
-      --card-bg: rgba(20,20,20,0.92);
-      --border: rgba(255,165,0,0.35);
-    }
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Georgia,serif;scroll-behavior:smooth}
-    body{background:var(--arche-dark);color:var(--arche-white);line-height:1.8;overflow-x:hidden}
-    .bg-overlay{
-      position:fixed;inset:0;
-      background:radial-gradient(circle at center,#1e0b36 0%,#0f0f0f 100%);
-      z-index:-1;
-    }
-    .container{
-      max-width:900px;
-      margin:0 auto;
-      padding:80px 20px;
-      opacity:0;
-      animation:fadeIn 2s ease-out .2s forwards;
-    }
-    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-    .header{text-align:center;margin-bottom:80px;}
-    .project-title{color:var(--pi-gold);font-size:1rem;letter-spacing:6px;text-transform:uppercase;margin-bottom:20px;opacity:.85}
-    .main-project-name{font-size:3.4rem;font-weight:900;color:#fff;text-shadow:0 0 25px rgba(255,165,0,.25);margin-bottom:40px}
-    .divider{width:60px;height:1px;background:var(--pi-gold);margin:30px auto;opacity:.55}
-    .arche-num{color:var(--pi-gold);font-size:1.2rem;font-weight:bold;margin-bottom:10px}
-    .sub-name{font-size:3rem;font-weight:800;margin-bottom:14px}
-    .tagline{font-style:italic;opacity:.65}
-
-    .philosophy{margin-bottom:80px;text-align:center;}
-    .philosophy h2{color:var(--pi-gold);font-size:2rem;margin-bottom:34px;font-weight:normal;letter-spacing:2px}
-    .philosophy p{font-size:1.12rem;color:#cfcfcf;margin:0 auto 26px;max-width:780px}
-
-    .conditions{
-      background:rgba(24,24,24,.45);
-      padding:50px;border-radius:12px;margin-bottom:70px;
-      border:1px solid rgba(255,255,255,.06);
-    }
-    .conditions h3{text-align:center;margin-bottom:34px;color:var(--pi-gold);font-size:1.65rem;font-weight:normal;letter-spacing:1px}
-    .condition-list{list-style:none}
-    .condition-list li{margin-bottom:22px;display:flex;align-items:flex-start;font-size:1.05rem;color:#b8b8b8}
-    .condition-list li::before{content:"◈";color:var(--pi-gold);margin-right:14px;opacity:.9}
-
-    .center{text-align:center;margin:0 auto 48px;}
-    .center p{margin-bottom:34px;opacity:.75}
-
-    .cta-btn{
-      display:inline-flex;align-items:center;justify-content:center;text-align:center;
-      padding:18px 56px;background:transparent;color:var(--pi-gold);
-      text-decoration:none;font-weight:bold;border:1px solid var(--pi-gold);
-      transition:.35s;
-      font-size: clamp(.98rem, 3.6vw, 1.05rem);
-      letter-spacing: clamp(1px, .8vw, 3px);
-      line-height: 1.15;
-      text-transform:uppercase;
-      cursor:pointer;border-radius:999px;
-      white-space: normal;word-break: keep-all;min-height: 54px;
-    }
-    .cta-btn:hover{background:var(--pi-gold);color:#000;box-shadow:0 0 40px rgba(255,165,0,.22);}
-    .cta-btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;}
-
-    #apply-section{
-      display:none;margin-top:50px;padding:54px 38px;
-      background:var(--card-bg);
-      border:1px solid var(--border);
-      border-radius:16px;
-    }
-    #apply-section h3{
-      color:var(--pi-gold);margin-bottom:28px;text-align:center;
-      font-size:1.7rem;font-weight:normal;letter-spacing:1px;
-    }
-    .form-group{margin-bottom:22px;text-align:left}
-    .form-group label{
-      display:block;margin-bottom:10px;color:var(--pi-gold);
-      font-size:.78rem;letter-spacing:2px;text-transform:uppercase;opacity:.95;
-    }
-    .form-group input,.form-group textarea{
-      width:100%;padding:14px 14px;background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:10px;
-      outline:none;font-size:1rem;
-    }
-    .form-group textarea{min-height:150px;resize:vertical}
-    .row{display:flex;gap:14px;flex-wrap:wrap}
-    .row .cta-btn{flex:1;min-width:240px}
-
-    .log{
-      margin-top:14px;font-size:13px;white-space:pre-wrap;
-      background:rgba(0,0,0,.28);padding:12px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.08);color:#eaeaea;text-align:left;
-    }
-
-    #success-banner{
-      display:none;margin-top:18px;padding:14px 16px;border-radius:12px;
-      border:1px solid rgba(255,165,0,.35);
-      background:rgba(255,165,0,.10);color:#fff;text-align:center;letter-spacing:1px
-    }
-
-    .gateway-wrap{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);text-align:center;}
-    .gateway-sub{opacity:.65;letter-spacing:2px;font-size:.9rem;margin-bottom:12px}
-    .gateway-btn{
-      width:100%;border-radius:14px;padding:18px 22px;
-      border:1px solid rgba(255,165,0,.55);
-      background:rgba(255,165,0,.06);color:var(--pi-gold);
-      letter-spacing:6px;
-    }
-    .gateway-btn:hover{background:rgba(255,165,0,.18);box-shadow:0 0 40px rgba(255,165,0,.16);}
-
-    footer{text-align:center;padding:90px 0 20px;font-size:.78rem;opacity:.45;letter-spacing:2px}
-  </style>
-</head>
-
-<body class="protected-content">
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5KJZ6B9F"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <div class="bg-overlay"></div>
-
-  <div class="container">
-    <header class="header">
-      <div class="project-title">Project Name</div>
-      <h1 class="main-project-name">code arche49-Pass:<br>Pi Genesis</h1>
-      <div class="divider"></div>
-      <div class="arche-num">CODE ARCHE #22</div>
-      <h2 class="sub-name">THIA</h2>
-      <p class="tagline">"The Journey to the Origin of Digital Ecosystem"</p>
-    </header>
-
-    <section class="philosophy">
-      <h2>Our Philosophy</h2>
-      <p>
-        We pay our deepest respect to the values of true equality and decentralization pursued by the Pi Network.
-        We envision a new digital soil where human life, art, and philosophy coexist beyond a mere collection of technologies.
-      </p>
-      <p>
-        Code Arche represents the 49 pillars to be erected upon that soil.
-        We are not seeking mere owners of these domains; we are searching for Guardians who will realize the vision of the Pi ecosystem together.
-      </p>
-    </section>
-
-    <section class="conditions">
-      <h3>The Ritual: Guardian Qualifications</h3>
-      <ul class="condition-list">
-        <li>Do you deeply understand and respect the core philosophy of the Pi Network?</li>
-        <li>Are you prepared to add artistic and philosophical value to the Pi ecosystem through this domain?</li>
-        <li>Do you pledge a substantial contribution to ecosystem activation rather than mere speculation?</li>
-        <li>Will you join the Code Arche project as an integral member of the digital community?</li>
-      </ul>
-    </section>
-
-    <div class="center">
-      <p>If you resonate with these values, share your vision with us.</p>
-      <button class="cta-btn" id="openApplyBtn" type="button">Apply for Guardianship</button>
-    </div>
-
-    <section id="apply-section">
-      <h3>Guardian Application</h3>
-
-      <form id="guardianForm">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" name="name" required />
-        </div>
-
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" name="email" required />
-        </div>
-
-        <div class="form-group">
-          <label>Your Vision & Philosophy</label>
-          <textarea name="vision" required placeholder="Describe how you will contribute to the Pi ecosystem..."></textarea>
-        </div>
-
-        <div id="success-banner">Thank you, future Guardian.</div>
-        <div class="log" id="log">Standing by…</div>
-
-        <div class="row" style="margin-top:20px;">
-          <button class="cta-btn" type="submit" id="submitBtn">Submit Application</button>
-          <button class="cta-btn" type="button" id="closeApplyBtn">Close</button>
-        </div>
-
-        <div class="gateway-wrap">
-          <div class="gateway-sub">NEXT GATE</div>
-          <button class="cta-btn gateway-btn" type="button" id="goGenesisBtn" disabled>
-            ENTER CODE ARCHE
-          </button>
-        </div>
-      </form>
-    </section>
-
-    <footer>
-      <p>&copy; 2026 CODE ARCHE. All Rights Reserved.<br>IN RECOGNITION OF PI NETWORK GENESIS PHILOSOPHY.</p>
-    </footer>
-  </div>
-
-  <script>
-    // UI refs
-    const applySection = document.getElementById("apply-section");
-    const openApplyBtn = document.getElementById("openApplyBtn");
-    const closeApplyBtn = document.getElementById("closeApplyBtn");
-
-    const logEl = document.getElementById("log");
-    const successBanner = document.getElementById("success-banner");
-
-    const formEl = document.getElementById("guardianForm");
-    const submitBtn = document.getElementById("submitBtn");
-    const goGenesisBtn = document.getElementById("goGenesisBtn");
-
-    const setLog = (m) => { logEl.textContent = m; };
-
-    function openForm() {
-      applySection.style.display = "block";
-      applySection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    function closeForm() {
-      applySection.style.display = "none";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    openApplyBtn.onclick = openForm;
-    closeApplyBtn.onclick = closeForm;
-
-    // NEXT GATE
-    goGenesisBtn.onclick = () => {
-      window.location.href = "/code arche.html";
-    };
-
-    // 초기 상태
-    goGenesisBtn.disabled = true;
-    successBanner.style.display = "none";
-    setLog("Standing by…");
-
-    function unlockGate() {
-      goGenesisBtn.disabled = false;
-      goGenesisBtn.textContent = "ENTER CODE ARCHE";
-      successBanner.style.display = "block";
-      successBanner.textContent = "Email sent ✅ NEXT GATE is now open.";
-    }
-
-    formEl.onsubmit = async (e) => {
-      e.preventDefault();
-
-      // 폼 데이터
-      const fd = new FormData(formEl);
-      const payload = {
-        name: String(fd.get("name") || "").trim(),
-        email: String(fd.get("email") || "").trim(),
-        vision: String(fd.get("vision") || "").trim(),
-      };
-
-      // 기본 검증
-      if (!payload.name || !payload.email || !payload.vision) {
-        setLog("Please fill out all fields.");
-        return;
-      }
-
-      submitBtn.disabled = true;
-      setLog("Sending email…");
-
-      try {
-        const r = await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-
-        const j = await r.json().catch(() => ({}));
-
-        if (!r.ok || !j.ok) {
-          setLog("Submit failed: " + (j.error || ("HTTP " + r.status)));
-          submitBtn.disabled = false;
-          return;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Genesis | CODE ARCHE</title>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <style>
+        :root {
+            --nexus-gold: #ffcc33;
+            --deep-void: #050505;
+            --stellar-white: #ffffff;
         }
 
-        setLog("Application submitted 🎉");
-        unlockGate();
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 14.2px; }
+        
+        body { 
+            background-color: var(--deep-void); 
+            color: var(--stellar-white); 
+            font-family: 'Cinzel', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            zoom: 0.9; 
+        }
 
-        // 원하면 제출 후 폼 잠깐 뒤 초기화
-        setTimeout(() => {
-          formEl.reset();
-          submitBtn.disabled = false;
-        }, 1200);
+        .nexus-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at center, #1a1a2e 0%, var(--deep-void) 80%),
+                url('https://www.transparenttextures.com/patterns/stardust.png');
+            z-index: -1;
+        }
 
-      } catch (err) {
-        setLog("Network error: " + String(err));
-        submitBtn.disabled = false;
-      }
-    };
-  </script>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(10px, 3vw, 40px);
+            max-width: 1450px;
+            width: 100%;
+        }
+
+        .portal-rings {
+            position: relative;
+            width: clamp(294px, 52.5vw, 560.5px);
+            height: clamp(294px, 52.5vw, 560.5px);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .star-core {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            box-shadow: 
+                0 0 4px rgba(255,255,255,0.1),
+                0 0 8px rgba(255,204,51,0.08);
+            transform: scale(0.7);
+            opacity: 0.12;
+            animation: starPulse 36s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+            z-index: 5;
+        }
+
+        .light-layer {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,204,51,0.4) 0%, transparent 70%);
+            transform: scale(0.85);
+            opacity: 0.2;
+        }
+
+        .layer-1 { width: 60px; height: 60px; animation: expandPulse 20s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .layer-2 { width: 120px; height: 120px; background: radial-gradient(circle, rgba(255,204,51,0.3) 0%, transparent 70%); animation: expandPulse 20s cubic-bezier(0.42, 0, 0.58, 1) infinite; animation-delay: 0.6s; }
+        .layer-3 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,204,51,0.2) 0%, transparent 70%); animation: expandPulse 20s cubic-bezier(0.42, 0, 0.58, 1) infinite; animation-delay: 1.2s; }
+        .layer-4 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,204,51,0.15) 0%, transparent 70%); animation: expandPulse 20s cubic-bezier(0.42, 0, 0.58, 1) infinite; animation-delay: 1.8s; }
+
+        .portal-core {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,204,51,0.12) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: expandPulse 20s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+            animation-delay: 2.4s;
+        }
+
+        .ring {
+            position: absolute;
+            border: 1px solid rgba(255, 204, 51, 0.25);
+            border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+            animation: rotate 20s infinite linear;
+        }
+
+        .ring-1 { width: 100%; height: 100%; animation-duration: 35s; }
+        .ring-2 { width: 80%; height: 80%; animation-duration: 28s; animation-direction: reverse; }
+        .ring-3 { width: 60%; height: 60%; animation-duration: 45s; border-color: rgba(255,255,255,0.08); }
+
+        .content { text-align: center; max-width: 2000px; flex-shrink: 1; }
+
+        .arche-prefix {
+            font-size: clamp(0.7rem, 1.22vw, 0.9875rem);
+            letter-spacing: clamp(8px, 1.8vw, 14px);
+            color: var(--nexus-gold);
+            text-transform: uppercase;
+            margin-bottom: clamp(15px, 3vw, 25px);
+            opacity: 0.5;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .main-heading {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 200;
+            letter-spacing: clamp(6px, 1.5vw, 12px);
+            text-transform: uppercase;
+            margin-bottom: clamp(20px, 4vw, 35px);
+            background: linear-gradient(to bottom, #ffffff 40%, var(--nexus-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideUp 2.5s ease-out;
+            line-height: 1.2;
+        }
+
+        .manifesto {
+            font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+            line-height: 1.6;
+            color: #999;
+            letter-spacing: clamp(2px, 0.6vw, 4px);
+            font-weight: 300;
+            margin-bottom: clamp(20px, 3vw, 30px);
+            padding: 0 clamp(10px, 3vw, 50px);
+            animation: fadeIn 5s ease-in;
+        }
+
+        .manifesto b { color: #fff; font-weight: 300; font-style: italic; }
+
+        .enter-ritual {
+            padding: clamp(14px, 2.5vw, 20px) clamp(40px, 6vw, 60px);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: clamp(4px, 1vw, 8px);
+            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+            cursor: pointer;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 10px;
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: clamp(1.5rem, 1.54vw, 1.1rem);
+            color: #ff9966;
+            opacity: 0.75;
+            font-style: italic;
+            letter-spacing: 1px;
+            animation: fadeIn 6s ease-in;
+        }
+
+        .enter-ritual:hover {
+            border-color: var(--nexus-gold);
+            color: var(--nexus-gold);
+            background: rgba(255, 204, 51, 0.03);
+            box-shadow: 0 0 60px rgba(255, 204, 51, 0.08);
+            letter-spacing: clamp(6px, 1.3vw, 10px);
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes starPulse {
+            0% { transform: scale(0.7); opacity: 0.12; box-shadow: 0 0 3.3px rgba(255,255,255,0.08), 0 0 6.6px rgba(255,204,51,0.06); }
+            45%, 83% { transform: scale(2.57); opacity: 1; box-shadow: 0 0 60.5px rgba(255,255,255,0.95), 0 0 121px var(--nexus-gold), 0 0 181.5px rgba(255,204,51,0.8); }
+            100% { transform: scale(0.7); opacity: 0.12; }
+        }
+        @keyframes expandPulse {
+            0% { transform: scale(0.85); opacity: 0.2; }
+            45%, 83% { transform: scale(1.65); opacity: 0.8; }
+            100% { transform: scale(0.85); opacity: 0.2; }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        @media (max-width: 1024px) {
+            body { zoom: 1.0; }
+            .container { flex-direction: column; gap: clamp(30px, 6vh, 60px); }
+            .portal-rings { width: clamp(275px, 66vw, 440px); height: clamp(275px, 66vw, 440px); }
+        }
+
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            body { padding: 15px; }
+            .portal-rings { width: clamp(242px, 77vw, 352px); height: clamp(242px, 77vw, 352px); }
+            .signature { font-size: 0.85rem !important; opacity: 0.6; }
+        }
+        @media (min-width: 1200px) { .main-heading { white-space: nowrap; } }
+    </style>
+</head>
+<body>
+    <div class="nexus-bg"></div>
+    
+    <div class="container">
+        <div class="portal-rings">
+            <div class="star-core"></div>
+            <div class="light-layer layer-1"></div>
+            <div class="light-layer layer-2"></div>
+            <div class="light-layer layer-3"></div>
+            <div class="light-layer layer-4"></div>
+            <div class="portal-core"></div>
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+        </div>
+
+        <div class="content">
+            <div class="arche-prefix">Universal Origin</div>
+            <h1 class="main-heading">Pi Genesis</h1>
+            <p class="manifesto">
+                beyond the boundaries of a single world,<br>
+                a <b>great confluence</b> is emerging.<br>
+                countless paths are converging into one sacred point,<br>
+                preparing to redefine the <b>fabric of reality</b>.
+            </p>
+            <button class="enter-ritual">Wait for the Alignment</button>
+            <div class="signature">Patience by Archeon THIA</div>
+        </div>
+    </div>
+
+    <script>
+(function () {
+  'use strict';
+
+  // 1) 보호 스크립트: Pi SDK랑 상관없이 항상 작동
+  const block = (e) => { e.preventDefault(); };
+
+  document.addEventListener('contextmenu', block, { passive: false });
+  document.addEventListener('copy', block, { passive: false });
+  document.addEventListener('dragstart', block, { passive: false });
+
+  document.addEventListener('keydown', (e) => {
+    const k = (e.key || '').toUpperCase();
+
+    // F12, Ctrl+Shift+I/J, Ctrl+U 차단 (원하면 더 추가 가능)
+    if (
+      k === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'J')) ||
+      (e.ctrlKey && k === 'U')
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+
+  // 2) 워터마크: load 후 추가
+  window.addEventListener('load', () => {
+    const watermark = document.createElement('div');
+    watermark.textContent = '© CODE ARCHE';
+    watermark.style.cssText =
+      'position:fixed;bottom:9px;right:9px;font-size:9px;' +
+      'color:rgba(255,204,51,0.3);pointer-events:none;z-index:9999;' +
+      'font-family:monospace;letter-spacing:2px;';
+    document.body.appendChild(watermark);
+  });
+
+  // 3) Pi SDK: 문법/흐름 안전하게 1번만
+  try {
+    if (typeof Pi !== 'undefined' && Pi && typeof Pi.init === 'function') {
+      Pi.init({ version: '2.0' });
+
+      // 프루스가 의도한 "팝업 중복 방지"도 결국 '중복 호출 금지'가 핵심
+      // scope는 하나로 통일하세요. (보통 'payments'를 씁니다)
+      Pi.authenticate(['payments'])
+        .then((auth) => {
+          const username = auth?.user?.username || '(unknown)';
+          console.log('%c[Pi Genesis] 연결 성공: ' + username, 'color:#ffcc33;font-weight:bold;');
+        })
+        .catch((error) => {
+          console.error('[Pi Genesis] 인증 실패/지연:', error);
+        });
+    } else {
+      console.log('[Pi Genesis] Pi 브라우저가 아닙니다.');
+    }
+  } catch (e) {
+    console.error('[Pi Genesis] Pi SDK 초기화 오류:', e);
+  }
+})();
+</script>
+
 </body>
 </html>
