@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODE ARCHE - Artist Message</title>
+    <style>
+        /* [1] 전체적인 분위기: 고결하고 신비로운 어둠 */
+        body {
+            background-color: #0a0a0a;
+            color: #d4af37; /* 고전적인 황금빛 */
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* [2] 텍스트 박스: 빛의 에너지가 느껴지는 배치 */
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+        }
+
+        .main-text {
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+            word-break: keep-all;
+        }
+
+        /* [3] 강조 문구: 다음에 보실게될 작품 */
+        .highlight {
+            font-size: 1.6rem;
+            display: block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .english-text {
+            font-style: italic;
+            color: #a68b2d;
+            margin-top: 30px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        /* [4] 버튼 디자인: 절제된 우아함 */
+        .btn-thia {
+            margin-top: 50px;
+            padding: 12px 35px;
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            cursor: pointer;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            transition: all 0.5s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-thia:hover {
+            background: #d4af37;
+            color: #0a0a0a;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* 워터마크 */
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            font-size: 0.8rem;
+            opacity: 0.3;
+            letter-spacing: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span class="highlight">다음에 보실게될 작품,</span>
+        
+        <p class="main-text">
+            빛의 에너지를 파이브라우저가 아직 감당을 못하고 있습니다.<br>
+            제 앱을 구글이나 엣지 브라우저를 통하면 편안하게 감상하실 수 있습니다.<br>
+            하루 속히 파이브라우저에서 나의 예술작품을 여러분들과 나누고 싶습니다.<br>
+            여기에 본질을 꿰뚫는 태초의 소리들을 입힐겁니다.<br>
+            그때까지는 그저 이 곳에 잠시 두겠습니다.<br>
+            보실 수 있는 분들만 몰래 보세요!
+        </p>
+
+        <div class="english-text">
+            "The next work you are about to see, Pi Browser cannot yet handle the energy of light. 
+            You can view my app comfortably through Google or Edge browsers. 
+            I hope to share my artistic works with everyone on Pi Browser as soon as possible. 
+            I will add the primordial sounds that pierce through the essence here. 
+            Until then, I will simply leave it here for a while. 
+            Only those who can see, please take a secret look!"
+        </div>
+
+        <a href="thia.html" class="btn-thia">ENTER THE RADIANCE</a>
+    </div>
+
+    <div class="watermark">CODE ARCHE</div>
+
+</body>
+</html>
