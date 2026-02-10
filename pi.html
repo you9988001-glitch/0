@@ -382,7 +382,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       e.preventDefault();
       
       if (!proofToken) {
-        setLog("먼저 결제를 완료해야 합니다.");
+        setLog("Payment is required before submission.");
         return;
       }
 
@@ -394,7 +394,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         proofToken
       };
 
-      setLog("제출 중…");
+      setLog("Applying…");
       
       try {
         const r = await fetch("/api/contact", {
@@ -404,7 +404,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
 
         if (r.ok) {
-          setLog("신청 완료 🎉");
+          setLog("Applied🎉");
           goGenesisBtn.disabled = false;
           goGenesisBtn.textContent = "ENTER CODE ARCHE";
 
@@ -417,10 +417,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           }, 3000);
         } else {
           const err = await r.json().catch(() => ({}));
-          setLog("제출 실패: " + (err?.error || "unknown"));
+          setLog("Retry: " + (err?.error || "unknown"));
         }
       } catch (err) {
-        setLog("제출 실패: " + err.message);
+        setLog("Retry: " + err.message);
       }
     };
   </script>
@@ -445,10 +445,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // 결제 시작
     async function startPayment() {
       try {
-        setLog("Pi 인증 중…");
+        setLog("Pi Verifying…");
         await ensureAuth();
 
-        setLog("결제 생성 중…");
+        setLog("Paying…");
 
         const paymentData = {
           amount: 0.01,
@@ -458,7 +458,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         const callbacks = {
           onReadyForServerApproval: async (paymentId) => {
-            setLog("서버 승인 요청 중…\npaymentId: " + paymentId);
+            setLog("Approve…\npaymentId: " + paymentId);
             
             const r = await fetch("/api/approve", {
               method: "POST",
@@ -469,11 +469,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const j = await r.json().catch(() => ({}));
             if (!r.ok) throw new Error("approve failed: " + JSON.stringify(j));
             
-            setLog("서버 승인 완료 ✅");
+            setLog("Approved ✅");
           },
 
           onReadyForServerCompletion: async (paymentId, txid) => {
-            setLog("서버 완료 요청 중…\npaymentId: " + paymentId + "\ntxid: " + txid);
+            setLog("Finalizing…\npaymentId: " + paymentId + "\ntxid: " + txid);
             
             const r = await fetch("/api/complete", {
               method: "POST",
@@ -486,22 +486,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             proofToken = j.proofToken || "ok";
             setVerifiedUI();
-            setLog("결제 완료 ✅\n제출 가능합니다.");
+            setLog("Verified ✅\nSubmit Now.");
           },
 
           onCancel: (paymentId) => {
-            setLog("결제가 취소되었습니다.\npaymentId: " + paymentId);
+            setLog("User Cancel.\npaymentId: " + paymentId);
           },
 
           onError: (error, payment) => {
-            setLog("결제 오류 ❌\n" + (error?.message || JSON.stringify(error)));
+            setLog("Pay Error ❌\n" + (error?.message || JSON.stringify(error)));
           }
         };
 
         Pi.createPayment(paymentData, callbacks);
 
       } catch (e) {
-        setLog("초기화 실패 ❌\n" + String(e));
+        setLog("Init Failed ❌\n" + String(e));
       }
     }
 
