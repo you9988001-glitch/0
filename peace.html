@@ -14,7 +14,7 @@
 
         body {
             margin: 0;
-            padding: 0 0 100px 0; /* 하단 여백 추가 */
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -51,7 +51,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: containerFadeIn 3.6s ease-out 0.6s forwards;
-            margin-bottom: 80px; /* 하단 여백 추가 */
+            margin-bottom: 20px; /* 적절한 하단 여백 */
         }
 
         @keyframes containerFadeIn {
@@ -176,18 +176,18 @@
         /* 모바일 환경 최적화 */
         @media (max-width: 768px) {
             body {
-                padding-bottom: 120px; /* 모바일에서 더 큰 하단 여백 */
+                padding-bottom: 60px; /* 모바일 적절한 하단 여백 */
             }
             
             .container {
-                margin-bottom: 100px; /* 모바일 컨테이너 하단 여백 증가 */
+                margin-bottom: 30px; /* 모바일 컨테이너 하단 여백 */
                 padding: 40px 30px;
             }
         }
 
         @media (max-width: 480px) {
             body {
-                padding-bottom: 140px; /* 작은 화면에서 더욱 큰 여백 */
+                padding-bottom: 75px; /* 작은 화면 적절한 여백 */
             }
         }
     </style>
@@ -259,7 +259,7 @@
                 watermark.textContent = '© CODE ARCHE';
                 watermark.style.cssText = `
                     position: fixed;
-                    bottom: 10px;
+                    bottom: 15px;
                     right: 10px;
                     font-size: 10px;
                     color: rgba(184, 134, 11, 0.3);
@@ -358,7 +358,7 @@
     /* 모바일 환경 최적화 */
     @media (max-width: 768px) {
         #arche-nexus {
-            bottom: 30px; /* 모바일에서 더 위로 올림 */
+            bottom: 25px; /* 모바일 적절한 위치 */
             right: 15px;
         }
     }
@@ -368,7 +368,7 @@
             min-width: 110px;
             height: 28px;
             padding: 0 12px;
-            bottom: 40px; /* 작은 화면에서 더욱 위로 */
+            bottom: 30px; /* 작은 화면 적절한 위치 */
             right: 15px;
         }
         .nexus-compact .title {
