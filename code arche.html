@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CODE ARCHE - Artist Message</title>
     <style>
-        /* [1] 전체적인 분위기: 고결하고 신비로운 어둠 */
         body {
             background-color: #0a0a0a;
             color: #d4af37;
@@ -23,7 +22,6 @@
             padding: 40px 20px;
         }
 
-        /* [2] 텍스트 박스: 빛의 에너지가 느껴지는 배치 */
         .container {
             max-width: 800px;
             width: 90%;
@@ -32,23 +30,16 @@
             background: rgba(255, 255, 255, 0.02);
             box-shadow: 0 0 50px rgba(0, 0, 0, 1);
             box-sizing: border-box;
-            
-            /* 페이드인 + 밑에서 위로 */
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 2s ease-out 0.5s forwards;
-            
             margin: auto;
         }
 
         @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* [3] 강조 문구 */
         .highlight {
             font-size: 1.8rem;
             display: block;
@@ -66,14 +57,13 @@
             opacity: 0.95;
         }
 
-        /* [4] 버튼 디자인: 둥글고 부드럽게 */
         .btn-thia {
             margin-top: 60px;
             padding: 20px 60px;
             background: transparent;
-            color: #e87000;                        /* ← 주황빛 진하게 */
-            border: 2px solid #c49a00;             /* ← 이전 골드로 */
-            border-radius: 50px;                   /* ← 모서리 둥글게 */
+            color: #e87000;
+            border: 2px solid #c49a00;
+            border-radius: 50px;
             cursor: pointer;
             font-size: 1.2rem;
             letter-spacing: 4px;
@@ -83,13 +73,29 @@
             font-weight: bold;
         }
         .btn-thia:hover {
-            background: #e87000;                   /* ← hover도 동일하게 */
+            background: #e87000;
             color: #0a0a0a;
             box-shadow: 0 0 30px rgba(232, 112, 0, 0.6);
             transform: scale(1.05);
         }
 
-        /* 워터마크 */
+        .ps-text {
+            margin-top: 50px;
+            font-size: 0.95rem;
+            opacity: 0.65;
+            font-style: italic;
+            letter-spacing: 0.03em;
+            line-height: 1.9;
+            word-break: keep-all;
+        }
+        .ps-url {
+            font-style: normal;
+            font-weight: bold;
+            letter-spacing: 0.08em;
+            opacity: 1;
+            color: #c49a00;
+        }
+
         .watermark {
             position: fixed;
             bottom: 20px;
@@ -98,56 +104,43 @@
             letter-spacing: 5px;
         }
 
-        /* 모바일 대응 */
         @media (max-width: 768px) {
-            .container {
-                width: 85%;
-                padding: 40px 20px;
-            }
-            .highlight {
-                font-size: 1.3rem;
-                letter-spacing: 0.05em;
-            }
-            .main-text {
-                font-size: 0.95rem;
-                letter-spacing: 0.02em;
-            }
-            .btn-thia {
-                padding: 18px 40px;
-                font-size: 1rem;
-                letter-spacing: 3px;
-            }
+            .container { width: 85%; padding: 40px 20px; }
+            .highlight { font-size: 1.3rem; letter-spacing: 0.05em; }
+            .main-text { font-size: 0.95rem; letter-spacing: 0.02em; }
+            .btn-thia { padding: 18px 40px; font-size: 1rem; letter-spacing: 3px; }
+            .ps-text { font-size: 0.88rem; }
         }
 
-        /* 작은 모바일 추가 대응 */
         @media (max-width: 480px) {
-            .container {
-                width: 90%;
-                padding: 30px 15px;
-            }
-            .highlight {
-                font-size: 1.1rem;
-            }
-            .main-text {
-                font-size: 0.9rem;
-            }
+            .container { width: 90%; padding: 30px 15px; }
+            .highlight { font-size: 1.1rem; }
+            .main-text { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <span class="highlight">The Work You Are About to Witness</span>
-        
+
         <p class="main-text">
             Pi Browser cannot yet contain the luminous energy woven into this creation.<br><br>
-            Full appreciation requires smooth-operating energy.[chrome,edge]<br><br>
+            Full appreciation requires smooth-operating energy. [Chrome / Edge]<br><br>
             Soon, I hope to share this art within Pi Browser itself,<br>
             layered with primordial sounds that pierce the essence of being.<br><br>
+            When the vessel of Pi finally grows strong enough to hold this radiance,<br>
+            this temporary gateway will fade into the light and vanish of its own accord.<br><br>
             Until that moment arrives, it rests here quietly.<br><br>
             Those who seek—enter in silence.
         </p>
 
         <a href="thia.html" class="btn-thia">ENTER THE AETHER</a>
+
+        <p class="ps-text">
+            P.S. For those guided by curiosity, you may witness the true form of this energy by<br>
+            copying the address below into Chrome or Edge:<br><br>
+            <span class="ps-url">0-phi-ten.vercel.app/thia.html</span>
+        </p>
     </div>
     <div class="watermark">CODE ARCHE</div>
 </body>
