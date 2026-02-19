@@ -600,8 +600,8 @@
       const isTablet = mqTablet.matches;
 
       // ✅ 모바일 31 → 41개로 증가
-      const THREAD_COUNT = isMobile ? 61 : (isTablet ? 64 : 80);
-      const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
+      const THREAD_COUNT = isMobile ? 55 : (isTablet ? 64 : 80);
+      const INNER_RATIO = isMobile ? 0.527 : (isTablet ? 0.50 : 0.45);
 
       const colors = [
         { color: 'rgba(255, 165, 75, 0.63)', width: isMobile ? 1.05 : 0.8 },
@@ -631,7 +631,7 @@
             heightVariation = isMobile ? rand(-8, 8) : rand(-10, 10);
           } else {
             // ✅ 외부: 55~108% (기존 62~108에서 하단 확장 → 빈 구간 메움)
-            baseSize = isMobile ? rand(55, 108) : rand(60, 112);
+            baseSize = isMobile ? rand(55, 95) : rand(60, 112);
             heightVariation = isMobile ? rand(-6, 6) : rand(-8, 8);
           }
         }
