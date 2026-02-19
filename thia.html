@@ -149,7 +149,6 @@
       100% { opacity: 0.18; transform: scale(1.05); }
     }
 
-    /* ✅ 모바일 전용: 깜빡임 완전 제거 + 부드러운 빛 퍼짐 효과 */
     @keyframes screenBreathMobile{
       0%   { opacity: 0.15; transform: translate3d(0, 0, 0) scale(1.00); }
       50%  { opacity: 0.32; transform: translate3d(0, 0, 0) scale(1.05); }
@@ -342,7 +341,6 @@
       }
     }
 
-    /* ✅ 모바일 전용: 품 넓게 유영하며 천천히 사라지는 빛의 호흡 - 최종 완성 */
     @keyframes colorShiftMobile {
       0% {
         opacity: 0.5;
@@ -398,7 +396,6 @@
           0 0 240px 120px rgba(120, 180, 230, 0.5),
           0 0 380px 190px rgba(150, 200, 250, 0.4);
       }
-      /* === 첫 번째 펄스: 천천히 줄어듦 === */
       44% {
         opacity: 0.62;
         transform: translate3d(0, 0, 0) scale(3.5);
@@ -408,7 +405,6 @@
           0 0 100px 50px rgba(120, 180, 230, 0.28),
           0 0 150px 75px rgba(150, 200, 250, 0.2);
       }
-      /* === 첫 번째 펄스: 천천히 다시 밝아짐 === */
       50% {
         opacity: 0.7;
         transform: translate3d(0, 0, 0) scale(5);
@@ -418,7 +414,6 @@
           0 0 150px 75px rgba(120, 180, 230, 0.38),
           0 0 230px 115px rgba(150, 200, 250, 0.28);
       }
-      /* === 두 번째 펄스: 천천히 줄어듦 === */
       56% {
         opacity: 0.6;
         transform: translate3d(0, 0, 0) scale(3);
@@ -428,7 +423,6 @@
           0 0 90px 45px rgba(120, 180, 230, 0.26),
           0 0 135px 67px rgba(150, 200, 250, 0.18);
       }
-      /* === 두 번째 펄스: 약하게 밝아짐 === */
       60% {
         opacity: 0.63;
         transform: translate3d(0, 0, 0) scale(3.5);
@@ -438,7 +432,6 @@
           0 0 108px 54px rgba(120, 180, 230, 0.28),
           0 0 160px 80px rgba(150, 200, 250, 0.2);
       }
-      /* === 서서히 사라짐 1단계 (24% 간격) === */
       84% {
         opacity: 0.57;
         transform: translate3d(0, 0, 0) scale(2.2);
@@ -448,7 +441,6 @@
           0 0 70px 35px rgba(120, 180, 230, 0.2),
           0 0 100px 50px rgba(150, 200, 250, 0.14);
       }
-      /* === 서서히 사라짐 2단계 (16% 간격) === */
       100% {
         opacity: 0.5;
         transform: translate3d(0, 0, 0) scale(1);
@@ -507,16 +499,11 @@
       .main-heading { letter-spacing: 12px; }
       .manifesto { min-width: auto; }
 
-      /* ✅ 모바일 최적화: 깜빡임 완전 제거 */
       .screen-glow{
         opacity: 0.18;
         filter: blur(20px);
         inset: -10vh -10vw;
-        
-        /* ✅ 핵심: 안정적인 애니메이션 사용 + 딜레이 제거 + 속도 느리게 */
         animation: screenBreathMobile 18s ease-in-out 0s infinite;
-        
-        /* ✅ GPU 가속 강화 */
         will-change: opacity;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
@@ -524,7 +511,6 @@
         -webkit-transform: translate3d(0, 0, 0);
       }
 
-      /* ✅ 중앙 빛(thia-core) 효과도 모바일 버전으로 전환 */
       .thia-core {
         animation: colorShiftMobile 60s ease-in-out 30s infinite;
         will-change: transform, opacity;
@@ -532,7 +518,6 @@
         -webkit-backface-visibility: hidden;
       }
 
-      /* ✅ 배경 파티클/레이어 부드럽게 */
       .water-particles{
         opacity: 0.3;
         animation-duration: 80s;
@@ -550,7 +535,6 @@
         will-change: opacity;
       }
 
-      /* ✅ 후광 효과도 부드럽게 */
       .light-halo {
         will-change: transform, opacity;
         backface-visibility: hidden;
@@ -615,7 +599,8 @@
       const isMobile = mqMobile.matches;
       const isTablet = mqTablet.matches;
 
-      const THREAD_COUNT = isMobile ? 31 : (isTablet ? 54 : 80);
+      // ✅ 모바일 31 → 41개로 증가
+      const THREAD_COUNT = isMobile ? 41 : (isTablet ? 54 : 80);
       const INNER_RATIO = isMobile ? 0.55 : (isTablet ? 0.50 : 0.45);
 
       const colors = [
@@ -641,10 +626,12 @@
           heightVariation = rand(-10, 10);
         } else {
           if (isInner) {
-            baseSize = isMobile ? rand(26, 58) : rand(28, 64);
+            // ✅ 내부: 26~65% (기존 26~58에서 상단 확장 → 빈 구간 메움)
+            baseSize = isMobile ? rand(26, 65) : rand(28, 64);
             heightVariation = isMobile ? rand(-8, 8) : rand(-10, 10);
           } else {
-            baseSize = isMobile ? rand(62, 108) : rand(60, 112);
+            // ✅ 외부: 55~108% (기존 62~108에서 하단 확장 → 빈 구간 메움)
+            baseSize = isMobile ? rand(55, 108) : rand(60, 112);
             heightVariation = isMobile ? rand(-6, 6) : rand(-8, 8);
           }
         }
@@ -659,12 +646,11 @@
 
         const flowAnim = `flow${1 + Math.floor(Math.random() * 8)}`;
 
-        // ✅ 모바일: 실타래 회전 속도 늦춰서 GPU 여유 확보 → 파란빛에 집중
         let duration =
           (isMobile ? 38 : (isTablet ? 29 : 25)) +
           Math.random() * (isMobile ? 28 : (isTablet ? 24 : 30));
 
-        if (isMobile) duration *= 1.2; // 회전 속도 20% 추가 감속
+        if (isMobile) duration *= 1.2;
 
         thread.style.animation = `${flowAnim} ${duration}s ease-in-out infinite`;
         thread.style.animationDelay = `${-Math.random() * duration}s`;
@@ -709,7 +695,6 @@
         document.body.appendChild(watermark);
       });
 
-      // peace 페이지로 우아한 전환
       const peaceLink = document.getElementById('peaceLink');
       if (peaceLink) {
         peaceLink.addEventListener('click', function() {
