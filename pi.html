@@ -407,14 +407,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           setLog("Applied🎉");
           goGenesisBtn.disabled = false;
           goGenesisBtn.textContent = "ENTER CODE ARCHE";
-
-          setTimeout(() => {
-            formEl.reset();
-            submitBtn.disabled = true;
-            proofToken = null;
-            successBanner.style.display = "none";
-            closeForm();
-          }, 3000);
+          // ✅ 자동으로 닫히던 setTimeout 제거 — Close 버튼 누를 때까지 그대로 머뭄
         } else {
           const err = await r.json().catch(() => ({}));
           setLog("Retry: " + (err?.error || "unknown"));
