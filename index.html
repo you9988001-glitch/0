@@ -13,7 +13,10 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 14.2px; }
+        html { 
+            font-size: 14.2px;
+            overflow-x: hidden; /* ✅ 오른쪽 빈 여백 방지 */
+        }
         
         body { 
             background-color: var(--deep-void); 
@@ -24,14 +27,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px; /* 기본 여백만 */
+            padding: 20px;
             zoom: 0.9; 
         }
 
         /* ─── 전이 퇴장 클래스 ─── */
         body.transitioning {
             animation: exitTransition 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            pointer-events: none; /* 퇴장 중 재클릭 방지 */
+            pointer-events: none;
         }
 
         @keyframes exitTransition {
@@ -53,10 +56,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(25px, 5vw, 50px); /* gap 증가로 포털과 텍스트 간격 확보 */
+            gap: clamp(25px, 5vw, 50px);
             max-width: 1450px;
             width: 100%;
-            margin-bottom: 0; /* 기본 마진 제거 */
+            margin-bottom: 0;
         }
 
         .portal-rings {
@@ -123,7 +126,7 @@
             text-align: center; 
             max-width: 2000px; 
             flex-shrink: 1;
-            padding-bottom: 0; /* 기본 padding만 */
+            padding-bottom: 0;
         }
 
         .arche-prefix {
@@ -175,7 +178,6 @@
             margin-bottom: 10px;
         }
 
-        /* ─── 버튼 클릭 순간 상태 ─── */
         .enter-ritual.activated {
             border-color: var(--nexus-gold) !important;
             color: var(--nexus-gold) !important;
@@ -192,7 +194,7 @@
             font-style: italic;
             letter-spacing: 1px;
             animation: fadeIn 6s ease-in;
-            margin-bottom: 0; /* 기본 마진만 */
+            margin-bottom: 0;
         }
 
         .enter-ritual:hover {
@@ -217,14 +219,28 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
+        /* ✅ 워터마크: html 요소에 붙여 body 애니메이션·zoom 완전히 분리 */
+        .wm-fixed {
+            position: fixed;
+            bottom: 15px;
+            right: 9px;
+            font-size: 9px;
+            color: rgba(255,204,51,0.3);
+            pointer-events: none;
+            z-index: 9999;
+            font-family: monospace;
+            letter-spacing: 2px;
+            white-space: nowrap; /* ✅ 줄바꿈 방지 (워터 / 마크 분리 현상 해결) */
+        }
+
         @media (max-width: 1024px) {
             body { 
                 zoom: 1.0; 
-                padding: 20px 20px 50px 20px; /* 태블릿 적절한 하단 여백 */
+                padding: 20px 20px 50px 20px;
             }
             .container { 
                 flex-direction: column; 
-                gap: clamp(35px, 7vh, 65px); /* 세로 배치시 간격 증가 */
+                gap: clamp(35px, 7vh, 65px);
                 margin-bottom: 0;
             }
             .portal-rings { width: clamp(275px, 66vw, 440px); height: clamp(275px, 66vw, 440px); }
@@ -236,7 +252,7 @@
         @media (max-width: 768px) {
             html { font-size: 14px; }
             body { 
-                padding: 15px 15px 65px 15px; /* 핸드폰 적절한 하단 여백 */
+                padding: 15px 15px 65px 15px;
             }
             .portal-rings { width: clamp(242px, 77vw, 352px); height: clamp(242px, 77vw, 352px); }
             .signature { 
@@ -249,13 +265,13 @@
             }
             .container {
                 margin-bottom: 0;
-                gap: clamp(30px, 6vh, 55px); /* 포털과 텍스트 간격 적절히 */
+                gap: clamp(30px, 6vh, 55px);
             }
         }
 
         @media (max-width: 480px) {
             body {
-                padding: 15px 15px 75px 15px; /* 작은 핸드폰 적절한 여백 */
+                padding: 15px 15px 75px 15px;
             }
             .container {
                 margin-bottom: 0;
@@ -318,31 +334,25 @@
     }
   }, true);
 
-  // ─── 워터마크 ───
+  // ─── 워터마크: document.documentElement(<html>)에 append ───
+  // body의 zoom / transform / filter / opacity 애니메이션과 완전히 분리됨
   window.addEventListener('load', () => {
     const watermark = document.createElement('div');
     watermark.textContent = '© CODE ARCHE';
-    watermark.style.cssText =
-      'position:fixed;bottom:15px;right:9px;font-size:9px;' +
-      'color:rgba(255,204,51,0.3);pointer-events:none;z-index:9999;' +
-      'font-family:monospace;letter-spacing:2px;';
-    document.body.appendChild(watermark);
+    watermark.className = 'wm-fixed';
+    document.documentElement.appendChild(watermark); // ✅ <html>에 붙임
   });
 
   // ─── 페이지 전이: "Aperio to Horizon" 클릭 시 ───
   document.querySelector('.enter-ritual').addEventListener('click', function () {
 
-    // 중복 클릭 방지
     if (this.classList.contains('activated')) return;
     this.classList.add('activated');
 
-    // 0.5s 후 → body 퇴장 animaton 시작 (1.8s 소요)
     setTimeout(() => {
       document.body.classList.add('transitioning');
     }, 500);
 
-    // 퇴장 완료 직후 → pi 페이지로 이동
-    // ⚠️ 아래 경로를 실제 pi 파일명/URL로 바꾸세요
     setTimeout(() => {
       window.location.href = 'pi.html';
     }, 2300);
