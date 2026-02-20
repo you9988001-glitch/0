@@ -15,7 +15,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { 
             font-size: 14.2px;
-            overflow: hidden; /* ✅ 스크롤바 완전 제거 - 레이아웃 흔들림 방지 */
+            overflow-x: hidden;
+            scrollbar-width: none; /* ✅ Firefox: 스크롤바 숨김 (스크롤 기능은 유지) */
+        }
+        html::-webkit-scrollbar {
+            display: none; /* ✅ Chrome·Safari·Pi Browser: 스크롤바 숨김 (스크롤 기능은 유지) */
         }
         
         body { 
