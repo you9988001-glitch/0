@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AT THE HOME</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Cinzel:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #daa520;
+      --gold-dim: rgba(218,165,32,0.4);
+      --gold-glow: rgba(218,165,32,0.15);
+      --teal: rgba(64,150,150,0.8);
+      --teal-glow: rgba(64,150,150,0.3);
+      --bg: #080806;
+    }
+
+    body {
+      background: var(--bg);
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 배경 숨결 */
+    .cosmic-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(218,165,32,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 30% at 20% 80%, rgba(64,150,150,0.04) 0%, transparent 60%);
+      animation: bgBreathe 12s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes bgBreathe {
+      0%   { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* 파티클 */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .p {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: drift linear infinite;
+    }
+    @keyframes drift {
+      0%   { opacity: 0; transform: translateY(0) translateX(0); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-120vh) translateX(20px); }
+    }
+
+    /* 중앙 컨테이너 */
+    .center {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      text-align: center;
+    }
+
+    /* 상단 작은 문구 */
+    .pre-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 6px;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards 0.4s;
+      margin-bottom: 18px;
+    }
+
+    /* 메인 문구 */
+    .main-text {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .at {
+      font-family: 'Cinzel', serif;
+      font-weight: 300;
+      font-size: clamp(28px, 8vw, 72px);
+      color: rgba(218,165,32,0.55);
+      letter-spacing: 14px;
+      opacity: 0;
+      animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) forwards 0.6s;
+      text-transform: uppercase;
+    }
+
+    .the {
+      font-family: 'Cinzel', serif;
+      font-weight: 300;
+      font-size: clamp(11px, 3vw, 22px);
+      color: var(--gold-dim);
+      letter-spacing: 22px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) forwards 0.85s;
+      margin: 6px 0;
+    }
+
+    .home {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      font-size: clamp(42px, 13vw, 120px);
+      color: var(--gold);
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1.6s cubic-bezier(0.16,1,0.3,1) forwards 1.1s;
+      text-shadow:
+        0 0 30px rgba(218,165,32,0.5),
+        0 0 80px rgba(218,165,32,0.2),
+        0 0 140px rgba(218,165,32,0.08);
+      position: relative;
+    }
+
+    /* HOME 아래 라인 */
+    .home-line {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: lineExpand 1.2s ease forwards 1.8s;
+      margin-top: 2px;
+    }
+    @keyframes lineExpand {
+      to { width: 100%; }
+    }
+
+    /* 하단 서브텍스트 */
+    .sub-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: rgba(64,150,150,0.7);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 2s;
+      margin-top: 22px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 장식 점들 */
+    .dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 36px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 2.3s;
+    }
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      animation: dotPulse 3s ease-in-out infinite alternate;
+    }
+    .dot:nth-child(1) { animation-delay: 0s; }
+    .dot:nth-child(2) { animation-delay: 0.5s; background: var(--teal); }
+    .dot:nth-child(3) { animation-delay: 1s; }
+    @keyframes dotPulse {
+      0%   { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1;   transform: scale(1.3); }
+    }
+
+    /* 코너 장식 */
+    .corner {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 2.5s;
+    }
+    .corner::before,
+    .corner::after {
+      content: '';
+      position: absolute;
+      background: var(--gold-dim);
+    }
+    .corner::before { width: 1px; height: 100%; }
+    .corner::after  { width: 100%; height: 1px; }
+
+    .corner.tl { top: 28px; left: 28px; }
+    .corner.tr { top: 28px; right: 28px; transform: scaleX(-1); }
+    .corner.bl { bottom: 28px; left: 28px; transform: scaleY(-1); }
+    .corner.br { bottom: 28px; right: 28px; transform: scale(-1); }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cosmic-bg"></div>
+
+<div class="particles" id="particles"></div>
+
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<div class="center">
+  <div class="pre-text">CODE ARCHE · DOMAIN</div>
+  <div class="main-text">
+    <span class="at">AT</span>
+    <span class="the">THE</span>
+    <span class="home">HOME</span>
+    <div class="home-line"></div>
+  </div>
+  <div class="sub-text">RETURN · ORIGIN · ARCHE</div>
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<script>
+  // 파티클 생성
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'p';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.bottom = '-2px';
+    p.style.width = (Math.random() * 1.5 + 0.5) + 'px';
+    p.style.height = p.style.width;
+    p.style.animationDuration = (Math.random() * 20 + 15) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    if (Math.random() > 0.7) p.style.background = 'rgba(64,150,150,0.8)';
+    container.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
