@@ -222,12 +222,25 @@
       letter-spacing: 3px;
       line-height: 1.6;
       text-transform: uppercase;
+      font-weight: 600;
+      animation: elegantPulse 10s ease-in-out infinite;
     }
 
     .await-main em {
       font-style: normal;
+      font-weight: 700;
       color: var(--gold);
-      text-shadow: 0 0 20px rgba(218,165,32,0.5);
+      text-shadow:
+        0 0 20px rgba(218,165,32,0.8),
+        0 0 40px rgba(218,165,32,0.4);
+    }
+
+    @keyframes elegantPulse {
+      0%   { opacity: 1; }
+      52%  { opacity: 1; }
+      76%  { opacity: 0.15; }
+      79%  { opacity: 0.15; }
+      100% { opacity: 1; }
     }
 
     /* 코너 장식 */
