@@ -228,7 +228,26 @@
             font-style: normal;
         }
 
-        @media (prefers-reduced-motion: reduce) {
+        /* wait 툴팁 */
+        .wait-tip {
+            position: fixed;
+            z-index: 99998;
+            background: rgba(13, 10, 5, 0.92);
+            border: 1px solid rgba(184,134,11,0.4);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.78rem;
+            color: rgba(212,165,116,0.9);
+            letter-spacing: 2px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            white-space: nowrap;
+        }
+        .wait-tip.show {
+            opacity: 1;
+        }
             * { animation: none !important; transition: none !important; }
             body, .container { opacity: 1 !important; transform: none !important; }
         }
@@ -316,7 +335,30 @@
                 }, 30000);
             });
 
-            // thia 페이지로 돌아가기
+            // 입력칸 클릭 → wait... 툴팁
+            const waitTip = document.createElement('div');
+            waitTip.className = 'wait-tip';
+            waitTip.textContent = 'wait...';
+            document.body.appendChild(waitTip);
+
+            let waitTimer = null;
+
+            function showWait(el) {
+                const rect = el.getBoundingClientRect();
+                waitTip.style.top = (rect.top - 36) + 'px';
+                waitTip.style.left = (rect.left + rect.width / 2 - waitTip.offsetWidth / 2) + 'px';
+                waitTip.classList.add('show');
+                el.blur();
+                if (waitTimer) clearTimeout(waitTimer);
+                waitTimer = setTimeout(() => {
+                    waitTip.classList.remove('show');
+                }, 1800);
+            }
+
+            document.querySelectorAll('.input-field').forEach(el => {
+                el.addEventListener('focus', function() { showWait(this); });
+                el.addEventListener('click', function() { showWait(this); });
+            });
             const thiaLink = document.getElementById('thiaLink');
             if (thiaLink) {
                 thiaLink.addEventListener('click', function(e) {
