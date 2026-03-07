@@ -4,36 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CODE ARCHE - Artist Message</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@200;300;400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --nexus-gold: #ffcc33;
+            --deep-void: #050505;
+            --stellar-white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html {
+            font-size: 14.2px;
+            overflow-x: hidden;
+            scrollbar-width: none;
+        }
+        html::-webkit-scrollbar { display: none; }
+
         body {
-            background-color: #0a0a0a;
-            color: #d4af37;
-            font-family: 'Times New Roman', serif;
+            background-color: var(--deep-void);
+            color: var(--stellar-white);
+            font-family: 'Cinzel', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            text-align: center;
-            line-height: 1.8;
             padding: 40px 20px;
+            zoom: 0.9;
+        }
+
+        body.transitioning {
+            animation: exitTransition 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            pointer-events: none;
+        }
+
+        @keyframes exitTransition {
+            0%   { opacity: 1; transform: scale(1); filter: brightness(1); }
+            40%  { opacity: 0.7; transform: scale(0.985); filter: brightness(1.15); }
+            100% { opacity: 0; transform: scale(0.94); filter: brightness(0.8); }
+        }
+
+        .nexus-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background:
+                radial-gradient(circle at center, #1a1a2e 0%, var(--deep-void) 80%),
+                url('https://www.transparenttextures.com/patterns/stardust.png');
+            z-index: -1;
         }
 
         .container {
             max-width: 800px;
             width: 90%;
             padding: 60px 30px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(255, 204, 51, 0.2);
             background: rgba(255, 255, 255, 0.02);
             box-shadow: 0 0 50px rgba(0, 0, 0, 1);
-            box-sizing: border-box;
+            text-align: center;
+            line-height: 1.8;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 2s ease-out 0.5s forwards;
-            margin: auto;
         }
 
         @keyframes fadeInUp {
@@ -41,76 +72,104 @@
         }
 
         .highlight {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             display: block;
             margin-bottom: 30px;
-            font-weight: bold;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            font-weight: 400;
+            color: var(--nexus-gold);
+            text-shadow: 0 0 15px rgba(255, 204, 51, 0.4);
             letter-spacing: 0.1em;
+            animation: fadeIn 3s ease-out;
         }
 
         .main-text {
-            font-size: 1.15rem;
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
             letter-spacing: 0.05em;
             word-break: keep-all;
             line-height: 2;
-            opacity: 0.95;
+            color: #999;
+            font-weight: 300;
+            animation: fadeIn 5s ease-in;
+        }
+
+        .main-text b {
+            color: #fff;
+            font-weight: 300;
+            font-style: italic;
         }
 
         .btn-thia {
-            margin-top: 60px;
-            padding: 20px 60px;
+            padding: clamp(14px, 2.5vw, 20px) clamp(40px, 6vw, 60px);
             background: transparent;
-            color: #e87000;
-            border: 2px solid #c49a00;
-            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: clamp(4px, 1vw, 8px);
+            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
             cursor: pointer;
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            transition: all 0.5s ease;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
             display: inline-block;
-            font-weight: bold;
+            font-family: 'Cinzel', serif;
+            margin-top: 50px;
+            margin-bottom: 10px;
         }
+
         .btn-thia:hover {
-            background: #e87000;
-            color: #0a0a0a;
-            box-shadow: 0 0 30px rgba(232, 112, 0, 0.6);
-            transform: scale(1.05);
+            border-color: var(--nexus-gold);
+            color: var(--nexus-gold);
+            background: rgba(255, 204, 51, 0.03);
+            box-shadow: 0 0 60px rgba(255, 204, 51, 0.08);
+            letter-spacing: clamp(6px, 1.3vw, 10px);
+        }
+
+        .btn-thia.activated {
+            border-color: var(--nexus-gold) !important;
+            color: var(--nexus-gold) !important;
+            box-shadow: 0 0 80px rgba(255, 204, 51, 0.2) !important;
+            letter-spacing: clamp(6px, 1.3vw, 10px) !important;
+            cursor: default;
         }
 
         .footnote {
-            margin-top: 48px;
-            font-size: 0.82rem;
-            opacity: 0.28;
+            margin-top: 30px;
+            font-size: 0.75rem;
+            opacity: 0.25;
             letter-spacing: 0.12em;
             font-family: monospace;
+            color: var(--nexus-gold);
         }
 
-        .watermark {
+        .wm-fixed {
             position: fixed;
-            bottom: 20px;
-            font-size: 0.8rem;
-            opacity: 0.3;
-            letter-spacing: 5px;
+            bottom: 15px;
+            right: 9px;
+            font-size: 9px;
+            color: rgba(255,204,51,0.3);
+            pointer-events: none;
+            z-index: 9999;
+            font-family: monospace;
+            letter-spacing: 2px;
+            white-space: nowrap;
         }
 
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 1024px) {
+            body { zoom: 1.0; padding: 20px 20px 50px 20px; }
+        }
         @media (max-width: 768px) {
             .container { width: 85%; padding: 40px 20px; }
-            .highlight { font-size: 1.3rem; letter-spacing: 0.05em; }
-            .main-text { font-size: 0.95rem; letter-spacing: 0.02em; }
-            .btn-thia { padding: 18px 40px; font-size: 1rem; letter-spacing: 3px; }
-
         }
-
         @media (max-width: 480px) {
+            body { padding: 15px 15px 75px 15px; }
             .container { width: 90%; padding: 30px 15px; }
-            .highlight { font-size: 1.1rem; }
-            .main-text { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
+    <div class="nexus-bg"></div>
+
     <div class="container">
         <span class="highlight">The Work You Are About to Witness</span>
 
@@ -126,10 +185,29 @@
             This secret, together!
         </p>
 
-        <a href="thia.html" class="btn-thia">ENTER THE AETHER</a>
+        <a class="btn-thia" id="enterBtn">Aperio to Horizon</a>
 
         <p class="footnote">0-phi-ten.vercel.app/thia.html &nbsp;—&nbsp; chrome / edge</p>
     </div>
-    <div class="watermark">CODE ARCHE</div>
+
+    <script>
+    (function() {
+        'use strict';
+
+        document.getElementById('enterBtn').addEventListener('click', function() {
+            if (this.classList.contains('activated')) return;
+            this.classList.add('activated');
+            setTimeout(() => { document.body.classList.add('transitioning'); }, 500);
+            setTimeout(() => { window.location.href = 'thia.html'; }, 2300);
+        });
+
+        window.addEventListener('load', () => {
+            const wm = document.createElement('div');
+            wm.textContent = '© CODE ARCHE';
+            wm.className = 'wm-fixed';
+            document.documentElement.appendChild(wm);
+        });
+    })();
+    </script>
 </body>
 </html>
