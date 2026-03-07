@@ -23,6 +23,7 @@
       height: 100vh;
       overflow: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-family: 'JetBrains Mono', monospace;
@@ -75,6 +76,7 @@
       align-items: center;
       gap: 0;
       text-align: center;
+      margin-bottom: 20px;
     }
 
     /* 상단 작은 문구 */
@@ -86,7 +88,7 @@
       text-transform: uppercase;
       opacity: 0;
       animation: fadeUp 1.2s ease forwards 0.4s;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     /* 메인 문구 */
@@ -101,7 +103,7 @@
     .at {
       font-family: 'Cinzel', serif;
       font-weight: 300;
-      font-size: clamp(28px, 8vw, 72px);
+      font-size: clamp(20px, 5.5vw, 50px);
       color: rgba(218,165,32,0.55);
       letter-spacing: 14px;
       opacity: 0;
@@ -112,19 +114,19 @@
     .the {
       font-family: 'Cinzel', serif;
       font-weight: 300;
-      font-size: clamp(11px, 3vw, 22px);
+      font-size: clamp(9px, 2.2vw, 16px);
       color: var(--gold-dim);
       letter-spacing: 22px;
       text-transform: uppercase;
       opacity: 0;
       animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) forwards 0.85s;
-      margin: 6px 0;
+      margin: 4px 0;
     }
 
     .home {
       font-family: 'Cinzel', serif;
       font-weight: 400;
-      font-size: clamp(42px, 13vw, 120px);
+      font-size: clamp(30px, 9vw, 82px);
       color: var(--gold);
       letter-spacing: 10px;
       text-transform: uppercase;
@@ -158,7 +160,7 @@
       text-transform: uppercase;
       opacity: 0;
       animation: fadeUp 1s ease forwards 2s;
-      margin-top: 22px;
+      margin-top: 16px;
     }
 
     @keyframes fadeUp {
@@ -170,7 +172,7 @@
     .dots {
       display: flex;
       gap: 8px;
-      margin-top: 36px;
+      margin-top: 20px;
       opacity: 0;
       animation: fadeUp 1s ease forwards 2.3s;
     }
@@ -187,6 +189,45 @@
     @keyframes dotPulse {
       0%   { opacity: 0.3; transform: scale(0.8); }
       100% { opacity: 1;   transform: scale(1.3); }
+    }
+
+    /* DOTPI 대기 문구 */
+    .await-banner {
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards 2.8s;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .await-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(64,150,150,0.5), transparent);
+      margin: 0 auto 18px;
+    }
+
+    .await-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 4px;
+      color: rgba(64,150,150,0.5);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .await-main {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(13px, 3.2vw, 22px);
+      color: rgba(218,165,32,0.75);
+      letter-spacing: 3px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .await-main em {
+      font-style: normal;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(218,165,32,0.5);
     }
 
     /* 코너 장식 */
@@ -219,7 +260,6 @@
 <body>
 
 <div class="cosmic-bg"></div>
-
 <div class="particles" id="particles"></div>
 
 <div class="corner tl"></div>
@@ -243,8 +283,15 @@
   </div>
 </div>
 
+<div class="await-banner">
+  <div class="await-line"></div>
+  <div class="await-label">Status</div>
+  <div class="await-main">
+    Awaiting alignment of <em>DOTPI</em>
+  </div>
+</div>
+
 <script>
-  // 파티클 생성
   const container = document.getElementById('particles');
   for (let i = 0; i < 30; i++) {
     const p = document.createElement('div');
@@ -261,4 +308,4 @@
 </script>
 
 </body>
-</html>    
+</html>
