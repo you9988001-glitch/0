@@ -158,32 +158,27 @@
 
         /* 대기 모달 */
         .await-modal {
-            display: none;
             position: fixed;
-            bottom: 40px;
+            top: 90px;
             left: 50%;
-            transform: translateX(-50%);
             z-index: 99999;
             pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+            transform: translateX(-50%) translateY(-10px);
         }
 
         .await-modal.show {
-            display: block;
-            animation: modalRise 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0px);
         }
 
         .await-modal.hide {
-            animation: modalFade 1.2s ease forwards;
-        }
-
-        @keyframes modalRise {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        @keyframes modalFade {
-            from { opacity: 1; transform: translateX(-50%) translateY(0); }
-            to   { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-10px);
         }
 
         .await-modal-inner {
@@ -304,23 +299,20 @@
             let hideTimer = null;
 
             shareBtn.addEventListener('click', function() {
-                // 기존 타이머 초기화
                 if (hideTimer) {
                     clearTimeout(hideTimer);
-                    awaitModal.classList.remove('show', 'hide');
-                    void awaitModal.offsetWidth; // reflow
+                    hideTimer = null;
                 }
 
                 awaitModal.classList.remove('hide');
                 awaitModal.classList.add('show');
 
-                // 30초 후 자동 사라짐
                 hideTimer = setTimeout(() => {
                     awaitModal.classList.remove('show');
                     awaitModal.classList.add('hide');
                     setTimeout(() => {
                         awaitModal.classList.remove('hide');
-                    }, 1200);
+                    }, 900);
                 }, 30000);
             });
 
