@@ -76,9 +76,10 @@
       margin-bottom: 20px;
     }
 
+    /* 20% 키움: 10px → 12px */
     .pre-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 13.2px;
       letter-spacing: 6px;
       color: var(--gold-dim);
       text-transform: uppercase;
@@ -95,10 +96,11 @@
       gap: 2px;
     }
 
+    /* 20% 키움: clamp(20px,5.5vw,50px) → clamp(24px,6.6vw,60px) */
     .at {
       font-family: 'Cinzel', serif;
       font-weight: 300;
-      font-size: clamp(20px, 5.5vw, 50px);
+      font-size: clamp(26.4px, 7.26vw, 66px);
       color: rgba(218,165,32,0.55);
       letter-spacing: 14px;
       opacity: 0;
@@ -106,10 +108,11 @@
       text-transform: uppercase;
     }
 
+    /* 20% 키움: clamp(9px,2.2vw,16px) → clamp(10.8px,2.64vw,19.2px) */
     .the {
       font-family: 'Cinzel', serif;
       font-weight: 300;
-      font-size: clamp(9px, 2.2vw, 16px);
+      font-size: clamp(11.88px, 2.904vw, 21.12px);
       color: var(--gold-dim);
       letter-spacing: 22px;
       text-transform: uppercase;
@@ -118,6 +121,7 @@
       margin: 4px 0;
     }
 
+    /* HOMEWARD — 그대로 */
     .home {
       font-family: 'Cinzel', serif;
       font-weight: 400;
@@ -145,9 +149,10 @@
       to { width: 100%; }
     }
 
+    /* 20% 키움: 9px → 10.8px */
     .sub-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 11.88px;
       letter-spacing: 4px;
       color: rgba(64,150,150,0.7);
       text-transform: uppercase;
@@ -197,18 +202,20 @@
       margin: 0 auto 18px;
     }
 
+    /* 20% 키움: 8px → 9.6px */
     .await-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 10.56px;
       letter-spacing: 4px;
       color: rgba(64,150,150,0.5);
       text-transform: uppercase;
       margin-bottom: 10px;
     }
 
+    /* 20% 키움: clamp(13px,3.2vw,22px) → clamp(15.6px,3.84vw,26.4px) */
     .await-main {
       font-family: 'Cinzel', serif;
-      font-size: clamp(13px, 3.2vw, 22px);
+      font-size: clamp(17.16px, 4.224vw, 29.04px);
       color: rgba(218,165,32,0.75);
       letter-spacing: 3px;
       line-height: 1.6;
@@ -234,7 +241,7 @@
       100% { opacity: 1; }
     }
 
-    /* 소멸 문구 */
+    /* 20% 키움: clamp(9px,1.8vw,13px) → clamp(10.8px,2.16vw,15.6px) */
     .dissolve-text {
       opacity: 0;
       animation: fadeUp 1.4s ease forwards 3.4s;
@@ -245,7 +252,7 @@
 
     .dissolve-text p {
       font-family: 'Cinzel', serif;
-      font-size: clamp(9px, 1.8vw, 13px);
+      font-size: clamp(11.88px, 2.376vw, 17.16px);
       color: rgba(64,150,150,0.8);
       letter-spacing: 1.5px;
       line-height: 2;
